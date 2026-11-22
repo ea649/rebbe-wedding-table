@@ -75,7 +75,7 @@
   .nap.taken { cursor: default; }
   .nap.taken .num { opacity: 0; }
   /* כרטיס Reserved for מקופל (בסיס מאינדיזיין) */
-  .tent { position: absolute; z-index: 4; width: calc(var(--w) * 1.32); aspect-ratio: 1200 / 800; transform: translate(-50%, -78%); pointer-events: none; container-type: inline-size;
+  .tent { position: absolute; z-index: 4; width: calc(var(--w) * 1.32); aspect-ratio: 1200 / 800; --tilt: perspective(700px) rotateY(var(--ry, 0deg)) rotateX(14deg); transform: translate(-50%, -78%) var(--tilt); transform-origin: 50% 82%; pointer-events: none; container-type: inline-size;
     background: url('images/place-card-base.png') center / 100% 100% no-repeat; animation: stand .6s cubic-bezier(.2,.9,.3,1.3); }
   .tent .b { position: absolute; left: 13%; right: 13%; top: 42.4%; text-align: center; font-family: var(--body); font-size: 3.1cqw; color: #766c64; white-space: nowrap; line-height: 1.2; letter-spacing: .02em; }
   .tent .n { position: absolute; left: 11%; right: 11%; top: 51.5%; height: 23.5%; display: flex; align-items: center; justify-content: center; font-family: var(--head); font-size: 12cqw; color: #1e1714; white-space: nowrap; line-height: 1; }
@@ -83,11 +83,11 @@
   /* כשמקום נתפס: המפית נעלמת (צלחת נקייה) והכרטיס המודפס עומד עליה */
   .cover { position: absolute; z-index: 3; width: calc(var(--w) * 1.17); aspect-ratio: 1.75; transform: translate(-50%, -50%); pointer-events: none; border-radius: 50%;
     background: radial-gradient(ellipse at 50% 45%, #fbf8f3 0%, #f4efe7 46%, #e9e2d6 62%, rgba(233,226,214,0) 71%); animation: fadein .5s; }
-  .tent.photo { background: none; width: calc(var(--w) * 1.6); aspect-ratio: 1339 / 681; transform: translate(-50%, -82%); filter: drop-shadow(0 5px 4px rgba(40,20,10,.45)); }
+  .tent.photo { background: none; width: calc(var(--w) * 1.4); aspect-ratio: 1339 / 681; transform: translate(-50%, -82%) var(--tilt); transform-origin: 50% 85%; filter: drop-shadow(0 5px 4px rgba(40,20,10,.45)); }
   .tent.photo img { width: 100%; height: 100%; display: block; }
   .tent.photo.mine { filter: drop-shadow(0 5px 4px rgba(40,20,10,.45)) drop-shadow(0 0 7px rgba(255,236,190,.95)); }
   @keyframes fadein { from { opacity: 0; } }
-  @keyframes stand { from { transform: translate(-50%, -40%) scale(.4); opacity: 0; } to { transform: translate(-50%, -78%) scale(1); opacity: 1; } }
+  @keyframes stand { from { transform: translate(-50%, -78%) perspective(700px) rotateY(var(--ry, 0deg)) rotateX(85deg); opacity: 0; } to { transform: translate(-50%, -78%) var(--tilt); opacity: 1; } }
 
   /* חלון */
   .dialog .script { color: var(--purple); }
@@ -145,6 +145,9 @@ import { getState, post, store, fillBranches, apiBase } from './app.js';
 // 19 המפיות בתמונת האולם לאורך (פיקסלים מתוך 1024×1536), עם כיוון השעון מלמעלה
 const SEATS = [[468,640],[565,640],[660,658],[744,682],[807,721],[846,770],[849,822],[817,877],[751,927],[648,957],[530,969],[416,956],[321,925],[246,880],[204,826],[200,776],[229,731],[289,688],[366,660]];
 const W = 1024, H = 1536;
+// זווית הכרטיס: מקביל לקצה השולחן מול הכיסא (שולחן עגול בפרספקטיבה, מרכז ~525,805)
+const CX = 525, CY = 805, RX = 325, RY = 165;
+const cardRY = (x, y) => { let t = Math.atan2((x - CX) / RX, (y - CY) / RY) * 180 / Math.PI; if (t > 90) t -= 180; if (t < -90) t += 180; return (t * 0.62).toFixed(1) + "deg"; };
 const napW = (y) => (4.6 + (y - 640) / 330 * 3.9).toFixed(2) + '%'; // המפיות למעלה קטנות יותר (פרספקטיבה)
 
 const $ = (id) => document.getElementById(id);
@@ -175,7 +178,7 @@ function render() {
     let el = stage.querySelector(`.tent[data-seat="${n}"]`);
     if (!el) {
       const [x, y] = SEATS[n - 1];
-      el = document.createElement('div'); el.className = 'tent'; el.dataset.seat = n; el.style.cssText = pct(x, y) + `;z-index:${Math.round(y)}`;
+      el = document.createElement('div'); el.className = 'tent'; el.dataset.seat = n; el.style.cssText = pct(x, y) + `;z-index:${Math.round(y)};--ry:${cardRY(x, y)}`;
       el.innerHTML = '<div class="b"></div><div class="n"></div>';
       const cv = document.createElement('div'); cv.className = 'cover'; cv.dataset.seat = n; cv.style.cssText = pct(x, y); stage.appendChild(cv);
       stage.appendChild(el);
