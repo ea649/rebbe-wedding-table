@@ -61,9 +61,10 @@
   @media (min-aspect-ratio: 2/3) { .hall-stage { min-width: 0; -webkit-mask-image: linear-gradient(to right, transparent, #000 7%, #000 93%, transparent); mask-image: linear-gradient(to right, transparent, #000 7%, #000 93%, transparent); } }
   /* שני הלוגואים, כמו במודעה */
   .logo-pill { position: absolute; z-index: 10; left: 50%; bottom: calc(16px + env(safe-area-inset-bottom)); transform: translateX(-50%); width: max-content; max-width: calc(100% - 32px); display: inline-flex; align-items: center; gap: 12px;
-    background: var(--paper); padding: 8px 18px; border-radius: 99px; box-shadow: 0 0 0 1px var(--gold), 0 10px 30px -10px rgba(0,0,0,.7); }
-  .logo-pill img { height: 38px; display: block; }
-  .logo-pill .coffee { height: 30px; padding-inline-start: 12px; border-inline-start: 1px solid rgba(110,20,36,.25); }
+    background: none; padding: 0; }
+  /* לוגואים לבנים ישירות על התמונה, בלי רקע */
+  .logo-pill img { height: 40px; display: block; filter: brightness(0) invert(1) drop-shadow(0 1px 6px rgba(0,0,0,.7)); }
+  .logo-pill .coffee { height: 32px; padding-inline-start: 14px; border-inline-start: 1px solid rgba(255,255,255,.55); }
   /* מספר רקום על המפית (רוחב לפי עומק התמונה: --w) */
   .nap { position: absolute; transform: translate(-50%, -50%); z-index: 3; border: 0; background: none; padding: 0; cursor: pointer; width: var(--w); aspect-ratio: 1.4; display: grid; place-items: center; -webkit-tap-highlight-color: transparent; container-type: inline-size; }
   .nap .num { font-family: var(--head); font-size: var(--fs); line-height: 1; transform: scaleY(.72);
