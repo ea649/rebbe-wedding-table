@@ -2,91 +2,115 @@
 <html lang="he" dir="rtl">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Save the Date · שולחן מנהלות שלהבות חב״ד</title>
-<meta name="description" content="שולחן מנהלות שלהבות חב״ד שמור לכן בהתוועדות החתונה — י״ד כסליו 24.11. בחרי כיסא ואשרי הגעה.">
+<meta name="description" content="שולחן מנהלות שלהבות חב״ד שמור לכן בהתוועדות החתונה — יום שלישי י״ד כסליו 24.11, 12:00–13:30. בחרי את הכיסא שלך.">
 <meta property="og:title" content="Save the Date · שולחן מנהלות שלהבות חב״ד">
 <meta property="og:description" content="התוועדות החתונה · יום שלישי י״ד כסליו 24.11 · 12:00–13:30 · לאישור הגעה ובחירת כיסא">
 <meta property="og:image" content="https://ea649.github.io/rebbe-wedding-table/images/save-the-date.jpg">
+<meta name="theme-color" content="#f5f0e7">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;700&family=Pinyon+Script&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
+<style>
+  body { background: var(--ivory); }
+  /* ===== פתיחה: נייר ההזמנה ===== */
+  .paper { position: relative; max-width: 560px; margin: 0 auto; padding: 46px 26px 34px; text-align: center; background: var(--paper);
+    background-image: radial-gradient(ellipse at 50% 0%, #fff 0%, transparent 60%); }
+  .paper::before { content: ''; position: absolute; inset: 12px; border: 1px solid rgba(79,56,150,.35); pointer-events: none; }
+  .paper .bh { position: absolute; top: 22px; right: 26px; font-size: 12px; color: var(--muted); }
+  .paper .logo { width: 150px; display: block; margin: 0 auto 22px; }
+  .save { font-family: var(--script); color: var(--purple); font-size: clamp(52px, 15vw, 76px); line-height: 1; }
+  .intro { font-size: 18px; line-height: 1.45; margin-top: 14px; }
+  .intro b { font-weight: 700; }
+  .names { position: relative; font-family: var(--head); color: var(--purple); font-size: clamp(64px, 19vw, 96px); line-height: .98; margin: 16px 0 6px; }
+  .names .amp { position: absolute; inset: -10% 0; display: grid; place-items: center; font-family: var(--body); font-weight: 300; font-size: 2.2em; color: rgba(79,56,150,.09); line-height: 1; }
+  .names span { position: relative; display: block; }
+  .portraits { display: flex; justify-content: center; gap: 16px; margin: 18px 0 8px; }
+  .portraits .arch { width: 74px; outline-color: rgba(79,56,150,.5); outline-offset: 4px; }
+  .years { font-size: 14px; letter-spacing: .12em; color: var(--muted); margin-top: 10px; }
+  .when { display: grid; grid-template-columns: 1fr 1.15fr 1fr; border-top: 1px solid var(--ink); border-bottom: 1px solid var(--ink); margin: 26px 0 0; }
+  .when div { padding: 12px 4px; font-size: 15.5px; line-height: 1.4; display: flex; flex-direction: column; justify-content: center; }
+  .when div + div { border-right: 1px solid var(--ink); }
+  .when b { font-family: var(--head); font-weight: 400; font-size: 21px; color: var(--purple); display: block; }
+  .topics { margin-top: 18px; font-size: 16px; line-height: 1.5; }
+  .topics small { display: block; color: var(--muted); font-size: 14.5px; margin-top: 4px; }
+  .go { display: inline-block; margin-top: 24px; text-decoration: none; background: var(--purple); color: #fff; padding: 13px 30px; font-size: 18px; letter-spacing: .04em; box-shadow: 0 12px 26px -12px rgba(79,56,150,.8); }
+  .go span { font-family: var(--script); font-size: 26px; margin-left: 8px; vertical-align: -3px; }
+
+  /* ===== האולם ===== */
+  .hall { background: #1a0f0c; color: #f3e8d6; padding: 48px 0 30px; }
+  .hall-head { text-align: center; padding: 0 20px 20px; }
+  .hall-head .script { font-family: var(--script); color: var(--gold-soft); font-size: 40px; line-height: 1; }
+  .hall-head h2 { font-family: var(--head); font-size: clamp(34px, 9vw, 54px); color: #fff; margin-top: 6px; }
+  .hall-head p { color: #cdbca2; margin: 8px auto 0; max-width: 520px; font-size: 16px; }
+  .counter { margin-top: 14px; }
+  .hall-scroll { overflow-x: auto; overflow-y: hidden; -webkit-overflow-scrolling: touch; scrollbar-width: none; overscroll-behavior-x: contain; }
+  .hall-scroll::-webkit-scrollbar { display: none; }
+  .hall-stage { min-width: 980px; }
+  .spot .dot { width: 30px; height: 30px; font-size: 0; }
+  .spot .dot::after { content: ''; width: 9px; height: 9px; border-radius: 50%; background: var(--purple); opacity: .85; }
+  /* כרטיס Reserved על המפית */
+  .tent { position: absolute; z-index: 4; transform: translate(-50%, -88%); width: 74px; pointer-events: none; filter: drop-shadow(0 7px 6px rgba(0,0,0,.45)); animation: stand .6s cubic-bezier(.2,.9,.3,1.3) both; }
+  .tent .face { background: #fbf8f2; border: 3px solid #1b1716; padding: 5px 3px 6px; text-align: center; transform: perspective(160px) rotateX(10deg); transform-origin: bottom; }
+  .tent .r { font-family: var(--script); color: var(--purple); font-size: 15px; line-height: 1; }
+  .tent .n { font-family: var(--head); color: var(--ink); font-size: 13px; line-height: 1.05; margin-top: 2px; word-break: break-word; }
+  .tent.mine .face { border-color: var(--purple); box-shadow: 0 0 0 2px #fff, 0 0 18px rgba(255,240,200,.9); }
+  @keyframes stand { from { transform: translate(-50%, -40%) scale(.4); opacity: 0; } to { transform: translate(-50%, -88%) scale(1); opacity: 1; } }
+  .spot.taken { display: none; }
+  .legend .f i { background: var(--gold-soft); }
+  .legend .t i { background: #fbf8f2; box-shadow: inset 0 0 0 2px #1b1716; border-radius: 0; }
+  .legend .m i { background: #fbf8f2; box-shadow: inset 0 0 0 2px var(--purple); border-radius: 0; }
+  .swipe { display: block; }
+  @media (min-width: 1000px) { .swipe { display: none; } }
+
+  /* חלון */
+  .dialog .script { color: var(--purple); }
+  .btn { background: var(--purple); box-shadow: inset 0 0 0 1px rgba(255,255,255,.35); }
+  .btn:hover { background: #3c2a77; }
+  .ok-seal { background: radial-gradient(circle at 35% 30%, #7a63c4, var(--purple) 60%, #2f2160); color: #fff; box-shadow: 0 8px 18px -6px rgba(79,56,150,.7), inset 0 0 0 2px rgba(255,255,255,.6); }
+  footer { background: #1a0f0c; color: #9c8b72; }
+  footer img { display: none; }
+</style>
 </head>
 <body>
 
-<!-- פתיחה: הכרטיס על הצלחת -->
-<section class="hero">
-  <div class="scene">
-    <div class="std">
-      <span class="bh">ב״ה</span>
-      <div class="save">Save the Date</div>
-      <div class="kicker"><b>שולחן מנהלות שלהבות חב״ד</b><br>שמור לכן בהתוועדות החתונה של</div>
-      <div class="names"><div class="amp">&amp;</div><span>הרבי</span><span>והרבנית</span></div>
-      <div class="of" style="margin-top:5cqw">98 שנה לחתונה · י״ד כסלו תרפ״ט</div>
-      <div class="grid">
-        <div>יום שלישי</div>
-        <div>י״ד כסליו<br>24.11</div>
-        <div><span dir="ltr">12:00–13:30</span></div>
-      </div>
-      <div class="topics">בין מנה למנה נדבר על נושאים שעל הפרק</div>
-      <img class="logo" src="images/logo-shalhevet.png" alt="שלהבות חב״ד">
-    </div>
+<section class="paper">
+  <span class="bh">ב״ה</span>
+  <img class="logo" src="images/logo-shalhevet.png" alt="שלהבות חב״ד">
+  <div class="save">Save the Date</div>
+  <div class="intro"><b>שולחן מנהלות שלהבות חב״ד</b><br>שמור לכן בהתוועדות החתונה של</div>
+  <div class="names"><div class="amp">&amp;</div><span>הרבי</span><span>והרבנית</span></div>
+  <div class="portraits">
+    <div class="arch"><img src="images/rebbe.jpg" alt="הרבי ביום החתונה"></div>
+    <div class="arch"><img src="images/rebbetzin.jpg" alt="הרבנית ביום החתונה"></div>
   </div>
-  <a class="cta" href="#hall">לאישור הגעה<small>בחרי את הכיסא שלך ליד השולחן</small></a>
+  <div class="years">98 שנה לחתונה · י״ד כסלו תרפ״ט</div>
+  <div class="when">
+    <div><b>יום שלישי</b>י״ד כסליו · 24.11</div>
+    <div><b>התוועדות</b>החתונה</div>
+    <div><b>בשעה</b><span dir="ltr">12:00–13:30</span></div>
+  </div>
+  <div class="topics">בין מנה למנה נדבר על נושאים שעל הפרק
+    <small>כנס יו״ד שבט · תוצאות הבוגר במורשת · שפה · ישיבות פדגוגיות · רישום ועוד</small></div>
+  <a class="go" href="#hall"><span>RSVP</span> לבחירת הכיסא שלי</a>
 </section>
 
-<!-- הרבי והרבנית -->
-<section class="couple">
-  <div class="eyebrow">י״ד כסלו תרפ״ט · י״ד כסליו תשפ״ז</div>
-  <div class="row">
-    <figure><div class="photo"><img src="images/rebbe.jpg" alt="הרבי ביום החתונה"></div><figcaption>הרבי</figcaption></figure>
-    <div class="years">98<small>שנה לחתונה</small></div>
-    <figure><div class="photo"><img src="images/rebbetzin.jpg" alt="הרבנית ביום החתונה"></div><figcaption>הרבנית</figcaption></figure>
-  </div>
-  <p>יום החתונה של הרבי והרבנית — ושולחן אחד, ערוך במיוחד, מחכה למנהלות שלהבות חב״ד.</p>
-</section>
-
-<!-- האולם -->
 <section class="hall" id="hall">
   <div class="hall-head">
-    <div class="eyebrow">אישור הגעה</div>
-    <h2>השולחן ערוך. הכיסא שלך מחכה.</h2>
-    <p>לחצי על כיסא פנוי ושמרי לך מקום. אישור עם כל הפרטים יישלח אלייך לוואטסאפ.</p>
+    <div class="script">Your seat</div>
+    <h2>בחרי את הכיסא שלך</h2>
+    <p>לחצי על כיסא פנוי. השם שלך יעמוד על המפית, ואישור הגעה יישלח אלייך לוואטסאפ.</p>
     <div class="counter" id="counter">טוען את השולחן...</div>
     <div class="banner" id="banner"></div>
   </div>
-  <div class="hall-scroll" id="hallScroll">
-    <div class="hall-stage" id="stage"></div>
-  </div>
+  <div class="hall-scroll" id="hallScroll"><div class="hall-stage" id="stage"></div></div>
   <div class="swipe">⟵ גוללים הצידה לראות את כל השולחן ⟶</div>
   <div class="legend"><span class="f"><i></i>כיסא פנוי</span><span class="t"><i></i>שמור</span><span class="m"><i></i>הכיסא שלי</span></div>
 </section>
 
-<!-- כרטיסי התפריט -->
-<section class="menus">
-  <div class="menu-card"><div class="in">
-    <div class="script">The</div>
-    <h3>תפריט השיחה</h3>
-    <div class="sub">בין מנה למנה</div>
-    <div class="course"><b>כנס יו״ד שבט</b></div>
-    <div class="course"><b>תוצאות הבוגר במורשת</b></div>
-    <div class="course"><b>שפה</b></div>
-    <div class="course"><b>ישיבות פדגוגיות</b></div>
-    <div class="course"><b>רישום ועוד</b></div>
-    <div class="sign">Bon Appétit</div>
-  </div></div>
-  <div class="menu-card"><div class="in">
-    <div class="script">Gift</div>
-    <h3>חותמת על מתנה</h3>
-    <div class="sub">להכין מראש</div>
-    <p>משהו שעשיתי השנה בבית הספר שהרבי והרבנית ישמחו בו <b>(בצורת שיק)</b></p>
-    <p class="ex">למשל: חיזוק הפרדה, השתדלות מיוחדת בנושא כיפה, מעשה לחיזוק הצוות, פעולה פדגוגית בדרך להצלחה ועוד...</p>
-    <div class="sign">Mazal Tov</div>
-  </div></div>
-</section>
-
-<footer><img src="images/logo-shalhevet.png" alt="שלהבות חב״ד">שלהבות חב״ד · רשת חינוך חב״ד</footer>
+<footer>שלהבות חב״ד · רשת חינוך חב״ד</footer>
 
 <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="dlgTitle">
   <div class="dialog"><div class="in">
@@ -94,58 +118,67 @@
     <form id="form" novalidate>
       <div class="script">Reserved</div>
       <h3 id="dlgTitle">שמירת מקום</h3>
-      <div class="seatno" id="seatno"></div>
-      <div class="field"><label for="fName">שם מלא</label><input id="fName" autocomplete="name" maxlength="40"></div>
+      <div class="seatno">ליד שולחן המנהלות</div>
+      <div class="field"><label for="fName">השם שיופיע על המפית</label><input id="fName" autocomplete="name" maxlength="40"></div>
       <div class="field"><label for="fBranch">סניף</label><select id="fBranch"></select></div>
       <div class="field" id="otherWrap" hidden><label for="fOther">שם הסניף</label><input id="fOther" maxlength="30"></div>
-      <div class="field"><label for="fPhone">נייד — לשם יישלח האישור בוואטסאפ</label><input id="fPhone" type="tel" inputmode="tel" autocomplete="tel" dir="ltr" placeholder="050-0000000"></div>
-      <button class="btn" id="submit">אישור הגעה ושמירת הכיסא</button>
+      <div class="field"><label for="fPhone">נייד — לשם יישלח אישור ההגעה בוואטסאפ</label><input id="fPhone" type="tel" inputmode="tel" autocomplete="tel" dir="ltr" placeholder="050-0000000"></div>
+      <button class="btn" id="submit">אישור הגעה</button>
       <div class="err" id="err"></div>
     </form>
     <div id="done" hidden>
       <div class="ok-seal">✓</div>
       <div class="script">See you there</div>
-      <h3>מקומך נשמר!</h3>
-      <div class="seatno" id="doneSeat"></div>
-      <p>אישור עם כל הפרטים — ומה להכין לצ'ק — נשלח אלייך עכשיו לוואטסאפ.</p>
-      <button class="btn" type="button" data-close>לחזרה לשולחן</button>
+      <h3>מקומך שמור!</h3>
+      <p>השם שלך כבר עומד על המפית.<br>אישור הגעה עם כל הפרטים — ומה להכין לצ'ק — נשלח אלייך עכשיו לוואטסאפ.</p>
+      <button class="btn" type="button" data-close>לראות את השולחן</button>
     </div>
   </div></div>
 </div>
 
 <script type="module">
-import { getState, post, store, esc, fillBranches } from './app.js';
+import { getState, post, store, fillBranches } from './app.js';
 
-// מיקומי 18 הכיסאות בתמונת האולם (פיקסלים מתוך 1536×1024), עם כיוון השעון מלמעלה
+// 18 הכיסאות בתמונת האולם (פיקסלים מתוך 1536×1024)
 const SEATS = [[667,272],[845,265],[995,283],[1132,335],[1240,410],[1280,533],[1285,628],[1240,713],[1090,763],[920,788],[720,790],[540,773],[380,713],[282,636],[265,546],[290,473],[362,345],[492,300]];
+// המפית של כל כיסא: הנקודה על טבעת הצלחות שבכיוון הכיסא
+const napkin = ([x, y]) => { const t = Math.atan2((y - 530) / 262, (x - 775) / 510); return [775 + 380 * Math.cos(t), 459 + 154 * Math.sin(t)]; };
 
 const $ = (id) => document.getElementById(id);
 const stage = $('stage'), modal = $('modal'), form = $('form');
 let state = null, chosen = null, busy = false;
 const mine = () => store.get('mySeat');
+const pct = (x, y) => `left:${x / 1536 * 100}%;top:${y / 1024 * 100}%`;
 
 fillBranches($('fBranch'));
 $('fBranch').onchange = () => { $('otherWrap').hidden = $('fBranch').value !== 'אחר'; };
 
 SEATS.forEach(([x, y], i) => {
   const b = document.createElement('button');
-  b.type = 'button'; b.className = 'spot'; b.dataset.seat = i + 1;
-  b.style.left = (x / 1536 * 100) + '%'; b.style.top = (y / 1024 * 100) + '%';
-  b.innerHTML = `<span class="dot">${i + 1}</span><span class="tent"></span>`;
+  b.type = 'button'; b.className = 'spot'; b.dataset.seat = i + 1; b.style.cssText = pct(x, y);
+  b.innerHTML = '<span class="dot"></span>';
+  b.setAttribute('aria-label', 'כיסא פנוי — לחצי לשמירה');
   b.onclick = () => openForm(i + 1);
   stage.appendChild(b);
 });
 
 function render() {
-  stage.querySelectorAll('.spot').forEach((b) => {
-    const n = +b.dataset.seat, t = state.taken[n];
-    b.classList.toggle('taken', !!t);
-    b.classList.toggle('mine', !!t && mine() == n);
-    b.querySelector('.tent').innerHTML = t ? `${esc(t.name.split(' ')[0])}<small>${esc(t.branch || '')}</small>` : '';
-    b.setAttribute('aria-label', t ? `כיסא ${n} — שמור ל${t.name}` : `כיסא ${n} — פנוי, לחצי לשמירה`);
-    b.title = t ? t.name + (t.branch ? ' · ' + t.branch : '') : `כיסא ${n} פנוי`;
-  });
-  const total = SEATS.length, c = Object.keys(state.taken).length;
+  stage.querySelectorAll('.spot').forEach((b) => b.classList.toggle('taken', !!state.taken[b.dataset.seat]));
+  const want = new Set(Object.keys(state.taken));
+  stage.querySelectorAll('.tent').forEach((t) => { if (!want.has(t.dataset.seat)) t.remove(); });
+  for (const n of want) {
+    const t = state.taken[n]; if (!SEATS[n - 1]) continue;
+    let el = stage.querySelector(`.tent[data-seat="${n}"]`);
+    if (!el) {
+      const [x, y] = napkin(SEATS[n - 1]);
+      el = document.createElement('div'); el.className = 'tent'; el.dataset.seat = n; el.style.cssText = pct(x, y) + `;z-index:${Math.round(y)}`;
+      el.innerHTML = '<div class="face"><div class="r">Reserved</div><div class="n"></div></div>';
+      stage.appendChild(el);
+    }
+    el.querySelector('.n').textContent = t.name;
+    el.classList.toggle('mine', mine() == n);
+  }
+  const total = SEATS.length, c = want.size;
   $('counter').textContent = c === 0 ? `${total} כיסאות מחכים לכן` : `${c} מתוך ${total} כיסאות נשמרו`;
   const bn = $('banner');
   if (!state.live) { bn.textContent = 'החיבור למערכת מתחדש — אפשר לנסות לשמור כיסא בעוד דקה.'; bn.classList.add('show'); }
@@ -155,10 +188,8 @@ function render() {
 
 function openForm(n) {
   if (state.taken[n] || state.reservationsOpen === false) return;
-  if (mine() && state.taken[mine()]) { alert(`כבר שמרת את כיסא ${mine()} 🙂`); return; }
-  chosen = n;
-  $('seatno').textContent = `כיסא ${n} · שולחן המנהלות`;
-  $('err').textContent = ''; form.hidden = false; $('done').hidden = true;
+  if (mine() && state.taken[mine()]) { alert('כבר שמרת מקום ליד השולחן 🙂'); return; }
+  chosen = n; $('err').textContent = ''; form.hidden = false; $('done').hidden = true;
   modal.classList.add('open');
   setTimeout(() => $('fName').focus(), 50);
 }
@@ -171,7 +202,7 @@ form.onsubmit = async (e) => {
   const name = $('fName').value.trim();
   const branch = $('fBranch').value === 'אחר' ? ($('fOther').value.trim() || 'אחר') : $('fBranch').value;
   const phone = $('fPhone').value.replace(/\D/g, '');
-  if (name.length < 2) return ($('err').textContent = 'נא למלא שם מלא');
+  if (name.length < 2) return ($('err').textContent = 'נא למלא שם');
   if (!/^(05\d{8}|9725\d{8})$/.test(phone)) return ($('err').textContent = 'נא למלא מספר נייד תקין, למשל 050-1234567');
   busy = true; $('submit').disabled = true; $('submit').textContent = 'שומרת...';
   try {
@@ -179,23 +210,23 @@ form.onsubmit = async (e) => {
     if (r.ok) {
       store.set('mySeat', r.seat);
       state = { ...r.state, live: true }; render();
-      $('doneSeat').textContent = `כיסא ${r.seat} · שולחן מנהלות שלהבות חב״ד`;
       form.hidden = true; $('done').hidden = false;
     } else {
-      $('err').textContent = r.error || 'משהו השתבש, נסי שוב';
+      $('err').textContent = (r.error || 'משהו השתבש, נסי שוב').replace(/את כיסא \d+/, 'מקום ליד השולחן');
       if (r.seat) store.set('mySeat', r.seat);
       if (r.state) { state = { ...r.state, live: true }; render(); }
     }
   } catch { $('err').textContent = 'אין כרגע חיבור למערכת — נסי שוב בעוד דקה'; }
-  busy = false; $('submit').disabled = false; $('submit').textContent = 'אישור הגעה ושמירת הכיסא';
+  busy = false; $('submit').disabled = false; $('submit').textContent = 'אישור הגעה';
 };
 
-// בטלפון: האולם רחב יותר מהמסך — ממרכזים את השולחן
+// בטלפון: ממרכזים את השולחן בגלילה
 const sc = $('hallScroll');
-requestAnimationFrame(() => { sc.scrollLeft = (sc.scrollWidth - sc.clientWidth) / 2 * (getComputedStyle(sc).direction === 'rtl' ? -1 : 1); });
+const centerHall = () => { const m = sc.scrollWidth - sc.clientWidth; if (m <= 0) return; sc.scrollLeft = -m / 2; if (sc.scrollLeft === 0) sc.scrollLeft = m / 2; };
+addEventListener('load', centerHall);
 
 async function refresh() { state = await getState(); render(); }
-await refresh();
+await refresh(); centerHall();
 setInterval(() => { if (!modal.classList.contains('open')) refresh(); }, 5000);
 </script>
 </body>

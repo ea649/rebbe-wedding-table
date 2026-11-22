@@ -2,8 +2,7 @@
 @font-face { font-family: 'Almoni'; src: url('fonts/almoni-light-aaa.otf') format('opentype'); font-weight: 300; font-display: swap; }
 @font-face { font-family: 'Almoni'; src: url('fonts/almoni-regular-aaa.otf') format('opentype'); font-weight: 400; font-display: swap; }
 @font-face { font-family: 'Almoni'; src: url('fonts/almoni-bold-aaa.otf') format('opentype'); font-weight: 700; font-display: swap; }
-/* בדידה — לכותרות. מספיק לשים את הקובץ בתיקיית fonts בשם bdida.otf / bdida.ttf / bdida.woff2 */
-@font-face { font-family: 'Bdida'; src: local('Bdida'), local('בדידה'), url('fonts/bdida.woff2') format('woff2'), url('fonts/bdida.otf') format('opentype'), url('fonts/bdida.ttf') format('truetype'); font-display: swap; }
+@font-face { font-family: 'Dida'; src: local('Dida FM'), url('fonts/dida-regular-fm.otf') format('opentype'); font-display: swap; }
 
 :root {
   --ivory: #f5f0e7;
@@ -15,7 +14,8 @@
   --gold: #b08a48;
   --gold-soft: #d9c08e;
   --line: #d8ccb6;
-  --head: 'Bdida', 'Frank Ruhl Libre', serif;
+  --head: 'Dida', serif;
+  --purple: #4f3896; --purple-soft: #ece7f6;
   --body: 'Almoni', sans-serif;
   --script: 'Pinyon Script', cursive;
   --burgundy: var(--wine); --burgundy-deep: var(--wine-deep); --gold-light: var(--gold-soft);
