@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>ניהול · שולחן מנהלות</title>
+<style>
+  @font-face { font-family: 'Tamlil'; src: url('fonts/FbTamlil-Regular.otf') format('opentype'); font-weight: 400; font-display: swap; }
+  @font-face { font-family: 'Tamlil'; src: url('fonts/FbTamlil-Bold.otf') format('opentype'); font-weight: 700; font-display: swap; }
+  :root { --paper: #fbf8f2; --ivory: #f5f0e7; --ink: #1e1714; --muted: #7d6f66; --gold: #b08a48; --wine: #6e1424; --wine-soft: #f3e3e5; --ok: #2f6b3a; --ok-soft: #e4f0e2; --line: #e6ddcf; }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: 'Tamlil', sans-serif; color: var(--ink); background: var(--ivory); font-size: 16px; line-height: 1.45; }
+  button, input { font-family: inherit; }
+  .wrap { max-width: 900px; margin: 0 auto; padding: 20px 16px 48px; }
+  header { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+  h1 { margin: 0; font-size: 26px; color: var(--wine); font-weight: 700; }
+  .sub { color: var(--muted); font-size: 14px; }
+  .live { font-size: 13px; color: var(--muted); display: flex; align-items: center; gap: 6px; }
+  .live i { width: 8px; height: 8px; border-radius: 50%; background: #bbb; display: inline-block; }
+  .live.on i { background: #3a9a4c; }
+  .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 18px 0; }
+  .stat { background: var(--paper); border: 1px solid var(--line); border-radius: 12px; padding: 12px; text-align: center; }
+  .stat b { display: block; font-size: 30px; color: var(--wine); line-height: 1.1; font-variant-numeric: tabular-nums; }
+  .stat span { font-size: 13px; color: var(--muted); }
+  h2 { font-size: 19px; margin: 26px 0 10px; font-weight: 700; display: flex; align-items: baseline; gap: 8px; }
+  h2 small { font-weight: 400; color: var(--muted); font-size: 14px; }
+  .card { background: var(--paper); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
+  table { width: 100%; border-collapse: collapse; }
+  th, td { padding: 10px 12px; text-align: right; border-bottom: 1px solid var(--line); vertical-align: middle; }
+  th { font-size: 13px; color: var(--muted); font-weight: 400; background: #f8f3ea; }
+  tr:last-child td { border-bottom: 0; }
+  td.seat { font-weight: 700; color: var(--wine); width: 1%; white-space: nowrap; text-align: center; }
+  td .name { font-weight: 700; }
+  a.ph { color: var(--ink); text-decoration: none; direction: ltr; unicode-bidi: isolate; white-space: nowrap; }
+  a.wa { display: inline-block; margin-inline-start: 6px; font-size: 12px; color: var(--ok); text-decoration: none; border: 1px solid #b9d6b6; border-radius: 99px; padding: 1px 8px; }
+  .tag { font-size: 12px; border-radius: 99px; padding: 2px 9px; white-space: nowrap; }
+  .tag.ok { background: var(--ok-soft); color: var(--ok); }
+  .tag.wait { background: var(--wine-soft); color: var(--wine); }
+  .muted { color: var(--muted); font-size: 13px; }
+  .empty { padding: 22px; text-align: center; color: var(--muted); }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip { background: var(--paper); border: 1px solid var(--line); border-radius: 99px; padding: 6px 14px; font-size: 15px; }
+  .chip.done { background: var(--ok-soft); border-color: #b9d6b6; color: var(--ok); }
+  .chip.done::before { content: '✓ '; }
+  .msg { margin-top: 18px; padding: 14px; border-radius: 12px; background: var(--wine-soft); color: var(--wine); display: none; }
+  .msg.show { display: block; }
+  /* בטלפון: כל נרשמת ככרטיס */
+  @media (max-width: 640px) {
+    .stat b { font-size: 26px; }
+    table, tbody, tr, td { display: block; width: 100%; }
+    thead { display: none; }
+    tr { display: grid; grid-template-columns: auto 1fr auto; gap: 2px 12px; padding: 12px; border-bottom: 1px solid var(--line); }
+    td { border: 0; padding: 0; }
+    td.seat { grid-row: span 3; align-self: center; font-size: 22px; width: auto; }
+    td.who { grid-column: 2; }
+    td.ph { grid-column: 2; }
+    td.when { grid-column: 3; grid-row: 1; text-align: left; }
+    td.st { grid-column: 3; grid-row: 2; text-align: left; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div>
+      <h1>שולחן מנהלות · ניהול</h1>
+      <div class="sub">התוועדות החתונה · יום שלישי י״ד כסליו 24.11 · 12:00–13:30</div>
+    </div>
+    <div class="live" id="live"><i></i><span>מתחבר...</span></div>
+  </header>
+
+  <div class="msg" id="msg"></div>
+
+  <div class="stats">
+    <div class="stat"><b id="sReg">–</b><span>נרשמו</span></div>
+    <div class="stat"><b id="sFree">–</b><span>כיסאות פנויים</span></div>
+    <div class="stat"><b id="sMiss">–</b><span>סניפים שעוד לא נרשמו</span></div>
+  </div>
+
+  <h2>עוד לא נרשמו <small id="missCount"></small></h2>
+  <div class="chips" id="missing"></div>
+
+  <h2>נרשמו <small id="regCount"></small></h2>
+  <div class="card">
+    <table>
+      <thead><tr><th>כיסא</th><th>שם וסניף</th><th>טלפון</th><th>מתי</th><th>אישור הגעה</th></tr></thead>
+      <tbody id="rows"><tr><td colspan="5" class="empty">טוען...</td></tr></tbody>
+    </table>
+  </div>
+
+  <h2>כל הסניפים</h2>
+  <div class="chips" id="allBranches"></div>
+</div>
+
+<script type="module">
+import { call, BRANCHES, esc } from './app.js';
+const $ = (id) => document.getElementById(id);
+const key = new URLSearchParams(location.hash.slice(1)).get('k');
+const time = (iso) => { if (!iso) return ''; const d = new Date(iso); return d.toLocaleDateString('he-IL', { day: 'numeric', month: 'numeric' }) + ' ' + d.toLocaleTimeString('he-IL', { hour: '2-digit', minute: '2-digit' }); };
+const showMsg = (t) => { $('msg').textContent = t; $('msg').classList.toggle('show', !!t); };
+
+function render(d) {
+  const rows = d.rows;
+  const regBranches = new Set(rows.map((r) => r.branch));
+  const missing = BRANCHES.filter((b) => !regBranches.has(b));
+  const extra = [...regBranches].filter((b) => b && !BRANCHES.includes(b));
+  $('sReg').textContent = rows.length;
+  $('sFree').textContent = d.seats - rows.length;
+  $('sMiss').textContent = missing.length;
+  $('regCount').textContent = `${rows.length} מתוך ${d.seats}`;
+  $('missCount').textContent = `${missing.length} מתוך ${BRANCHES.length} סניפים`;
+  $('missing').innerHTML = missing.length ? missing.map((b) => `<span class="chip">${esc(b)}</span>`).join('') : '<span class="muted">כל הסניפים נרשמו 🎉</span>';
+  $('allBranches').innerHTML = [...BRANCHES, ...extra].map((b) => `<span class="chip ${regBranches.has(b) ? 'done' : ''}">${esc(b)}</span>`).join('');
+  $('rows').innerHTML = rows.length ? rows.map((r) => {
+    const intl = '972' + String(r.phone).slice(1);
+    const st = r.forwarded ? '<span class="tag ok">הועבר ל-054-7770696</span>' : `<span class="tag wait">${r.error ? 'שליחה נכשלה, מנסה שוב' : 'ממתין לשליחה'}</span>`;
+    return `<tr>
+      <td class="seat">${r.seat}</td>
+      <td class="who"><span class="name">${esc(r.name)}</span> <span class="muted">· ${esc(r.branch || '')}</span></td>
+      <td class="ph"><a class="ph" href="tel:${esc(r.phone)}">${esc(r.phone)}</a><a class="wa" href="https://wa.me/${intl}" target="_blank" rel="noopener">וואטסאפ</a></td>
+      <td class="when muted">${time(r.at)}</td>
+      <td class="st">${st}</td></tr>`;
+  }).join('') : '<tr><td colspan="5" class="empty">עוד אין נרשמות</td></tr>';
+}
+
+async function refresh() {
+  if (!key) { showMsg('חסר מפתח הניהול בקישור. צריך לפתוח את הקישור המלא שנשלח בוואטסאפ.'); return; }
+  try {
+    const d = await call('/api/admin-list?k=' + encodeURIComponent(key));
+    if (!d.ok) { showMsg(d.status === 403 ? 'המפתח בקישור לא נכון. צריך לפתוח את הקישור המלא שנשלח בוואטסאפ.' : (d.error || 'שגיאה')); return; }
+    showMsg(''); render(d);
+    $('live').classList.add('on'); $('live').querySelector('span').textContent = 'מתעדכן אוטומטית · ' + new Date().toLocaleTimeString('he-IL', { hour: '2-digit', minute: '2-digit' });
+  } catch {
+    $('live').classList.remove('on'); $('live').querySelector('span').textContent = 'אין חיבור לשרת — מנסה שוב';
+  }
+}
+refresh();
+setInterval(refresh, 15000);
+</script>
+</body>
+</html>

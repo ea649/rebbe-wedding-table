@@ -16,7 +16,7 @@ async function resolveApi() {
   return null;
 }
 
-async function call(path, opts = {}, retry = true) {
+export async function call(path, opts = {}, retry = true) {
   if (!api) await resolveApi();
   if (!api) throw new Error('offline');
   try {
