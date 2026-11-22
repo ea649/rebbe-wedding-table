@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>שולחן מנהלות שלהבות חב״ד · התוועדות החתונה</title>
+<meta name="description" content="שולחן מנהלות שלהבות חב״ד שמור לכן בהתוועדות החתונה — י״ד כסליו 24.11. בחרי כיסא ואשרי הגעה.">
+<meta property="og:title" content="שולחן מנהלות שלהבות חב״ד שמור לכן">
+<meta property="og:description" content="התוועדות החתונה · י״ד כסליו 24.11 · לחצי על כיסא לאישור הגעה">
+<meta property="og:image" content="https://ea649.github.io/rebbe-wedding-table/images/rebbe-rebbetzin-wedding.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<main class="invite">
+  <span class="bh">ב״ה</span>
+  <img class="logo" src="images/logo-shalhevet.png" alt="שלהבות חב״ד">
+
+  <div class="eyebrow">י״ד כסלו · 98 שנה לחתונה</div>
+  <div class="portraits">
+    <div class="arch"><img src="images/rebbe.jpg" alt="הרבי ביום החתונה"></div>
+    <div class="amp">&amp;</div>
+    <div class="arch"><img src="images/rebbetzin.jpg" alt="הרבנית ביום החתונה"></div>
+  </div>
+  <div class="caption">הרבי והרבנית · חתונתם בי״ד כסלו תרפ״ט</div>
+
+  <div class="title-small">לכבוד</div>
+  <h1 class="main">שולחן מנהלות<span>שלהבות חב״ד</span></h1>
+  <div class="subtitle">שמור לכן בהתוועדות החתונה</div>
+
+  <div class="when">
+    <div><b>יום שלישי</b><small>מזל טוב!</small></div>
+    <div><b>י״ד כסליו</b><small>24.11</small></div>
+    <div><b>12:00</b><small>עד 13:30</small></div>
+  </div>
+
+  <section class="menu">
+    <h2>תפריט השיחה</h2>
+    <div class="lead">בין מנה למנה נדבר על נושאים שעל הפרק</div>
+    <div class="course"><div class="k">מנה ראשונה</div><div class="v">כנס יו״ד שבט</div></div>
+    <div class="course"><div class="k">מנה שנייה</div><div class="v">תוצאות הבוגר במורשת</div></div>
+    <div class="course"><div class="k">מנה שלישית</div><div class="v">שפה</div></div>
+    <div class="course"><div class="k">מנה עיקרית</div><div class="v">ישיבות פדגוגיות</div></div>
+    <div class="course"><div class="k">קינוח</div><div class="v">רישום ועוד</div></div>
+  </section>
+
+  <section class="gift-note">
+    <div class="seal">✦</div>
+    <h3>חותמת על מתנה</h3>
+    <p>משהו שעשיתי השנה בבית הספר שהרבי והרבנית ישמחו בו <b>(בצורת שיק)</b></p>
+    <p class="ex">למשל: חיזוק הפרדה, השתדלות מיוחדת בנושא כיפה, מעשה לחיזוק הצוות, פעולה פדגוגית בדרך להצלחה ועוד...</p>
+  </section>
+
+  <div class="ornament">✦</div>
+
+  <section class="rsvp" id="rsvp">
+    <h2>לאישור הגעה</h2>
+    <div class="lead">לחצי על כיסא פנוי סביב השולחן ושמרי לך מקום</div>
+    <div class="counter" id="counter">טוען את השולחן...</div>
+    <div class="banner" id="banner"></div>
+    <div class="table-wrap" id="table">
+      <div class="tabletop"><img src="images/gifts/staff.png" alt=""><div class="tt">שולחן מנהלות<br>שלהבות חב״ד</div></div>
+    </div>
+    <div class="legend"><span><i></i>פנוי</span><span class="t"><i></i>נתפס</span><span class="m"><i></i>הכיסא שלי</span></div>
+  </section>
+</main>
+<footer>שלהבות חב״ד · רשת חינוך חב״ד</footer>
+
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="dlgTitle">
+  <div class="dialog">
+    <button class="close" type="button" aria-label="סגירה" data-close>×</button>
+    <form id="form" novalidate>
+      <h3 id="dlgTitle">שמירת מקום</h3>
+      <div class="seatno" id="seatno"></div>
+      <div class="field"><label for="fName">שם מלא</label><input id="fName" autocomplete="name" required maxlength="40"></div>
+      <div class="field"><label for="fBranch">סניף</label><select id="fBranch"></select></div>
+      <div class="field" id="otherWrap" hidden><label for="fOther">שם הסניף</label><input id="fOther" maxlength="30"></div>
+      <div class="field"><label for="fPhone">נייד (לשם יישלח האישור בוואטסאפ)</label><input id="fPhone" type="tel" inputmode="tel" autocomplete="tel" dir="ltr" placeholder="050-0000000" required></div>
+      <button class="btn" id="submit">אישור הגעה ושמירת הכיסא</button>
+      <div class="err" id="err"></div>
+    </form>
+    <div id="done" hidden>
+      <div class="done-icon">✓</div>
+      <h3>מקומך נשמר!</h3>
+      <div class="seatno" id="doneSeat"></div>
+      <p>אישור עם כל הפרטים — ומה להכין לצ'ק — נשלח אלייך עכשיו לוואטסאפ.</p>
+      <p style="color:var(--muted);font-size:15px">נתראה בי״ד כסליו, 12:00 ✦</p>
+      <button class="btn" type="button" data-close>לחזרה לשולחן</button>
+    </div>
+  </div>
+</div>
+
+<script type="module">
+import { getState, post, store, esc, fillBranches } from './app.js';
+
+const table = document.getElementById('table');
+const modal = document.getElementById('modal');
+const form = document.getElementById('form');
+const $ = (id) => document.getElementById(id);
+let state = null, chosen = null, busy = false;
+const mine = () => store.get('mySeat');
+
+fillBranches($('fBranch'));
+$('fBranch').onchange = () => { $('otherWrap').hidden = $('fBranch').value !== 'אחר'; };
+
+function render() {
+  const n = state.seats || 20;
+  table.querySelectorAll('.chair,.label').forEach((e) => e.remove());
+  for (let i = 1; i <= n; i++) {
+    const a = (i - 1) / n * 2 * Math.PI - Math.PI / 2;
+    const t = state.taken[i];
+    const isMine = t && mine() == i;
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'chair' + (t ? ' taken' : '') + (isMine ? ' mine' : '');
+    b.style.left = 50 + 37 * Math.cos(a) + '%';
+    b.style.top = 50 + 37 * Math.sin(a) + '%';
+    b.style.transform = `rotate(${a * 180 / Math.PI + 90}deg)`;
+    b.innerHTML = `<span class="seat"><span style="transform:rotate(${-(a * 180 / Math.PI + 90)}deg)">${i}</span></span>`;
+    b.setAttribute('aria-label', t ? `כיסא ${i} — שמור ל${t.name}` : `כיסא ${i} — פנוי, לחצי לשמירה`);
+    if (t) b.title = t.name + (t.branch ? ' · ' + t.branch : '');
+    else b.onclick = () => openForm(i);
+    table.appendChild(b);
+    if (t) {
+      const l = document.createElement('div');
+      l.className = 'label';
+      l.style.left = 50 + 47.5 * Math.cos(a) + '%';
+      l.style.top = 50 + 47.5 * Math.sin(a) + '%';
+      l.innerHTML = esc(t.branch && t.branch !== 'אחר' ? t.branch : t.name.split(' ')[0]);
+      table.appendChild(l);
+    }
+  }
+  const c = Object.keys(state.taken).length;
+  $('counter').textContent = c === 0 ? `${n} כיסאות מחכים לכן` : `${c} מתוך ${n} כיסאות נשמרו`;
+  const bn = $('banner');
+  if (!state.live) { bn.textContent = 'החיבור למערכת מתחדש — אפשר לנסות לשמור כיסא בעוד דקה.'; bn.classList.add('show'); }
+  else if (state.reservationsOpen === false) { bn.textContent = 'שמירת המקומות נסגרה. נתראה בהתוועדות!'; bn.classList.add('show'); }
+  else bn.classList.remove('show');
+}
+
+function openForm(i) {
+  if (state.reservationsOpen === false) return;
+  if (mine() && state.taken[mine()]) { alert(`כבר שמרת את כיסא ${mine()} 🙂`); return; }
+  chosen = i;
+  $('seatno').textContent = `כיסא מס׳ ${i} · שולחן המנהלות`;
+  $('err').textContent = '';
+  form.hidden = false; $('done').hidden = true;
+  modal.classList.add('open');
+  setTimeout(() => $('fName').focus(), 50);
+}
+function closeModal() { modal.classList.remove('open'); }
+modal.addEventListener('click', (e) => { if (e.target === modal || e.target.closest('[data-close]')) closeModal(); });
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
+
+form.onsubmit = async (e) => {
+  e.preventDefault();
+  if (busy) return;
+  const name = $('fName').value.trim();
+  const branch = $('fBranch').value === 'אחר' ? ($('fOther').value.trim() || 'אחר') : $('fBranch').value;
+  const phone = $('fPhone').value.replace(/\D/g, '');
+  if (name.length < 2) return ($('err').textContent = 'נא למלא שם מלא');
+  if (!/^(05\d{8}|9725\d{8})$/.test(phone)) return ($('err').textContent = 'נא למלא מספר נייד תקין, למשל 050-1234567');
+  busy = true; $('submit').disabled = true; $('submit').textContent = 'שומרת...';
+  try {
+    const r = await post('/api/reserve', { seat: chosen, name, branch, phone });
+    if (r.ok) {
+      store.set('mySeat', r.seat);
+      state = { ...r.state, live: true }; render();
+      $('doneSeat').textContent = `כיסא מס׳ ${r.seat} · שולחן מנהלות שלהבות חב״ד`;
+      form.hidden = true; $('done').hidden = false;
+    } else {
+      $('err').textContent = r.error || 'משהו השתבש, נסי שוב';
+      if (r.seat) store.set('mySeat', r.seat);
+      if (r.state) { state = { ...r.state, live: true }; render(); }
+    }
+  } catch {
+    $('err').textContent = 'אין כרגע חיבור למערכת — נסי שוב בעוד דקה';
+  }
+  busy = false; $('submit').disabled = false; $('submit').textContent = 'אישור הגעה ושמירת הכיסא';
+};
+
+async function refresh() { state = await getState(); render(); }
+await refresh();
+setInterval(() => { if (!modal.classList.contains('open')) refresh(); }, 5000);
+</script>
+</body>
+</html>
