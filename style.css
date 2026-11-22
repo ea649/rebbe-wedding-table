@@ -15,7 +15,9 @@
   --gold-soft: #d9c08e;
   --line: #d8ccb6;
   --head: 'Dida', serif;
-  --purple: #4f3896; --purple-soft: #ece7f6;
+  --purple: #6e1424; --purple-soft: #f3e3e5;
+  --bordeaux-grad: linear-gradient(160deg, #8c1e2e 0%, #6e1424 50%, #43091a 100%);
+  --bordeaux-grad-dark: linear-gradient(160deg, #6e1424 0%, #4f0c1a 50%, #2e0610 100%);
   --body: 'Almoni', sans-serif;
   --script: 'Pinyon Script', cursive;
   --burgundy: var(--wine); --burgundy-deep: var(--wine-deep); --gold-light: var(--gold-soft);
