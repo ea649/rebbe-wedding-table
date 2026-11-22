@@ -16,7 +16,9 @@
   .top { text-align: center; padding: 26px 16px 0; position: relative; }
   .top .bh { color: #cdb98f; top: 18px; right: 22px; }
   .logo-pill { display: inline-block; background: var(--paper); padding: 10px 22px; border-radius: 99px; box-shadow: 0 0 0 1px var(--gold), 0 10px 30px -10px rgba(0,0,0,.6); }
+  .logo-pill { display: inline-flex; align-items: center; gap: 14px; }
   .logo-pill img { height: 46px; display: block; }
+  .logo-pill .coffee { height: 34px; padding-inline-start: 14px; border-inline-start: 1px solid rgba(110,20,36,.25); }
   .top h1 { font-size: clamp(36px, 8vw, 64px); color: var(--gold-light); margin-top: 18px; text-shadow: 0 2px 20px rgba(226,199,136,.25); }
   .top .sub { color: #e6d6b8; font-size: clamp(16px, 3.6vw, 21px); margin: 6px auto 0; max-width: 620px; }
   .mini-portraits { display: flex; justify-content: center; gap: 14px; margin: 18px 0 0; }
@@ -64,7 +66,7 @@
 <body>
 <header class="top">
   <span class="bh">ב״ה</span>
-  <div class="logo-pill"><img src="images/logo-shalhevet.png" alt="שלהבות חב״ד"></div>
+  <div class="logo-pill"><img src="images/logo-shalhevet.png" alt="שלהבות חב״ד"><img class="coffee" src="images/logo-coffee-shalhevet.png" alt="Coffee שלהבות"></div>
   <div class="mini-portraits">
     <div class="arch"><img src="images/rebbe.jpg" alt="הרבי ביום החתונה"></div>
     <div class="arch"><img src="images/rebbetzin.jpg" alt="הרבנית ביום החתונה"></div>
