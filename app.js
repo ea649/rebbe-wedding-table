@@ -45,3 +45,4 @@ export const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&a
 export function fillBranches(sel) {
   sel.innerHTML = '<option value="">בחרי סניף</option>' + BRANCHES.map((b) => `<option>${b}</option>`).join('') + '<option value="אחר">אחר</option>';
 }
+export const apiBase = () => api;
