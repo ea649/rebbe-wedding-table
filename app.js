@@ -3,7 +3,7 @@ const REPO = 'ea649/rebbe-wedding-table';
 export const BRANCHES = ['גדרה', 'יקנעם', 'קרית גת', 'אביטל תע״ך', 'אשקלון', 'באר שבע', 'ביאליק', 'רמת ישי', 'מגדל', 'גני תקווה', 'ראשל״צ', 'חולון', 'נתניה', 'חיפה', 'מזכרת בתיה', 'אור עקיבא', 'באר יעקב', 'ירושלים'];
 export const CAT_NAMES = { general: 'מתנה', kippah: 'כיפה', tzniut: 'פנינים של צניעות', staff: 'זר של צוות מאוחד', pedagogy: 'עשייה פדגוגית', tefila: 'סידור', torah: 'חומש', shabbat: 'נרות שבת', tzedaka: 'קופת צדקה', light: 'מנורה מאירה', parents: 'בית חם', ahava: 'לב של אהבת ישראל', students: 'שתיל צומח', mivtzaim: 'מזוזה' };
 
-let api = null;
+let api = location.hostname === 'localhost' ? 'http://127.0.0.1:3078' : null; // בדיקה מקומית
 async function resolveApi() {
   try {
     const r = await fetch(`https://api.github.com/repos/${REPO}/contents/config.json?ref=main&t=${Date.now()}`, { headers: { Accept: 'application/vnd.github.raw+json' }, cache: 'no-store' });
