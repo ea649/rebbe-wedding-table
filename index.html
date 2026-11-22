@@ -40,22 +40,32 @@
   .go span { font-family: var(--script); font-size: 26px; margin-left: 8px; vertical-align: -3px; }
 
   /* ===== האולם ===== */
-  .hall { background: #1a0f0c; color: #f3e8d6; padding: 34px 0 30px; }
-  .hall-head { position: relative; text-align: center; padding: 0 20px 18px; }
-  .hall-head .bh { position: absolute; top: -18px; right: 16px; font-size: 12px; color: #9c8b72; }
+  /* כל המסך = תמונת האולם (לאורך), השולחן בתחתית והכותרת מעליו */
+  .hall { position: relative; height: 100vh; height: 100svh; min-height: 560px; overflow: hidden; background: #1a0f0c; color: #f3e8d6; padding: 0 !important; }
+  .hall-head { position: absolute; z-index: 10; top: 0; left: 0; right: 0; text-align: center; padding: calc(30px + env(safe-area-inset-top)) 16px 40px;
+    background: linear-gradient(rgba(26,15,12,.88), rgba(26,15,12,.6) 65%, rgba(26,15,12,0)); pointer-events: none; }
+  .hall-head .banner { pointer-events: auto; }
+  .hall-head .bh { position: absolute; top: calc(10px + env(safe-area-inset-top)); right: 16px; font-size: 12px; color: #9c8b72; }
   .hall-head .sub { font-size: 16px; color: #e6d6b8; margin-top: 8px; }
-  .hall-head .std-script { font-family: var(--script); color: var(--gold-soft); font-size: clamp(54px, 15vw, 84px); line-height: 1.05; margin: 4px auto 8px; }
-  .hall-head .date { font-family: var(--head); font-size: clamp(24px, 6.6vw, 32px); letter-spacing: .08em; word-spacing: .15em; color: var(--gold-soft); margin-top: 12px; line-height: 1.3; }
+  .hall-head .std-script { font-family: var(--script); color: var(--gold-soft); font-size: clamp(44px, 12.5vw, 76px); line-height: 1.05; margin: 0 auto 4px; }
+  .hall-head .date { font-family: var(--head); font-size: clamp(18px, 5.2vw, 28px); letter-spacing: .08em; word-spacing: .15em; color: var(--gold-soft); margin-top: 8px; line-height: 1.3; }
   .counter[hidden] { display: none; }
   .hall-head .script { font-family: var(--script); color: var(--gold-soft); font-size: 40px; line-height: 1; }
-  .hall-head h2 { font-family: var(--head); font-size: clamp(34px, 9vw, 54px); color: #fff; margin-top: 6px; }
+  .hall-head h2 { font-family: var(--head); font-size: clamp(28px, 8vw, 48px); color: #fff; margin-top: 2px; text-shadow: 0 2px 10px rgba(0,0,0,.6); }
   .hall-head p { color: #cdbca2; margin: 8px auto 0; max-width: 520px; font-size: 16px; }
   .counter { margin-top: 14px; }
-  .hall-scroll { overflow-x: auto; overflow-y: hidden; -webkit-overflow-scrolling: touch; scrollbar-width: none; overscroll-behavior-x: contain; }
-  .hall-scroll::-webkit-scrollbar { display: none; }
-  .hall-stage { min-width: 980px; background-image: url('images/hall-table-v5.jpg'); }
-  /* מספר רקום על המפית */
-  .nap { position: absolute; transform: translate(-50%, -50%); z-index: 3; border: 0; background: none; padding: 0; cursor: pointer; width: 6.5%; aspect-ratio: 1.4; display: grid; place-items: center; -webkit-tap-highlight-color: transparent; container-type: inline-size; }
+  /* השולחן: תמונה לאורך 1024×1536, צמודה לתחתית המסך; בטלפון מעט רחבה מהמסך (הצדדים הריקים נחתכים) */
+  .hall-stage { position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: min(calc(100svh / 1.5), 125vw); min-width: 100%; max-width: none; aspect-ratio: 1024 / 1536;
+    background: url('images/hall-portrait-19.jpg') center / 100% 100% no-repeat; container-type: inline-size; }
+  .hall-stage::before { content: ''; position: absolute; z-index: 1; left: 0; right: 0; top: -1px; height: 14%; pointer-events: none; background: linear-gradient(#1a0f0c, rgba(26,15,12,0)); }
+  @media (min-aspect-ratio: 2/3) { .hall-stage { min-width: 0; -webkit-mask-image: linear-gradient(to right, transparent, #000 7%, #000 93%, transparent); mask-image: linear-gradient(to right, transparent, #000 7%, #000 93%, transparent); } }
+  /* שני הלוגואים, כמו במודעה */
+  .logo-pill { position: absolute; z-index: 10; left: 50%; bottom: calc(16px + env(safe-area-inset-bottom)); transform: translateX(-50%); width: max-content; max-width: calc(100% - 32px); display: inline-flex; align-items: center; gap: 12px;
+    background: var(--paper); padding: 8px 18px; border-radius: 99px; box-shadow: 0 0 0 1px var(--gold), 0 10px 30px -10px rgba(0,0,0,.7); }
+  .logo-pill img { height: 38px; display: block; }
+  .logo-pill .coffee { height: 30px; padding-inline-start: 12px; border-inline-start: 1px solid rgba(110,20,36,.25); }
+  /* מספר רקום על המפית (רוחב לפי עומק התמונה: --w) */
+  .nap { position: absolute; transform: translate(-50%, -50%); z-index: 3; border: 0; background: none; padding: 0; cursor: pointer; width: var(--w); aspect-ratio: 1.4; display: grid; place-items: center; -webkit-tap-highlight-color: transparent; container-type: inline-size; }
   .nap .num { font-family: var(--head); font-size: var(--fs); line-height: 1; transform: scaleY(.72);
     background: repeating-linear-gradient(115deg, #fff1c4 0 .6px, #e3c27a .6px 1.5px, #a9823a 1.5px 2.2px); -webkit-background-clip: text; background-clip: text; color: transparent;
     filter: drop-shadow(0 .6px 0 rgba(40,8,14,.9)) drop-shadow(0 0 1.5px rgba(255,220,150,.35)); transition: transform .2s; }
@@ -64,29 +74,19 @@
   .nap.taken { cursor: default; }
   .nap.taken .num { opacity: 0; }
   /* כרטיס Reserved for מקופל (בסיס מאינדיזיין) */
-  .tent { position: absolute; z-index: 4; width: 8.6%; aspect-ratio: 1200 / 800; transform: translate(-50%, -78%); pointer-events: none; container-type: inline-size;
+  .tent { position: absolute; z-index: 4; width: calc(var(--w) * 1.32); aspect-ratio: 1200 / 800; transform: translate(-50%, -78%); pointer-events: none; container-type: inline-size;
     background: url('images/place-card-base.png') center / 100% 100% no-repeat; animation: stand .6s cubic-bezier(.2,.9,.3,1.3); }
   .tent .b { position: absolute; left: 13%; right: 13%; top: 42.4%; text-align: center; font-family: var(--body); font-size: 3.1cqw; color: #766c64; white-space: nowrap; line-height: 1.2; letter-spacing: .02em; }
   .tent .n { position: absolute; left: 11%; right: 11%; top: 51.5%; height: 23.5%; display: flex; align-items: center; justify-content: center; font-family: var(--head); font-size: 12cqw; color: #1e1714; white-space: nowrap; line-height: 1; }
   .tent.mine { filter: drop-shadow(0 0 6px rgba(255,236,190,.95)); }
   /* כשמקום נתפס: המפית נעלמת (צלחת נקייה) והכרטיס המודפס עומד עליה */
-  .cover { position: absolute; z-index: 3; width: 7.6%; aspect-ratio: 1.75; transform: translate(-50%, -50%); pointer-events: none; border-radius: 50%;
+  .cover { position: absolute; z-index: 3; width: calc(var(--w) * 1.17); aspect-ratio: 1.75; transform: translate(-50%, -50%); pointer-events: none; border-radius: 50%;
     background: radial-gradient(ellipse at 50% 45%, #fbf8f3 0%, #f4efe7 46%, #e9e2d6 62%, rgba(233,226,214,0) 71%); animation: fadein .5s; }
-  .tent.photo { background: none; width: 10.4%; aspect-ratio: 1339 / 681; transform: translate(-50%, -82%); filter: drop-shadow(0 5px 4px rgba(40,20,10,.45)); }
+  .tent.photo { background: none; width: calc(var(--w) * 1.6); aspect-ratio: 1339 / 681; transform: translate(-50%, -82%); filter: drop-shadow(0 5px 4px rgba(40,20,10,.45)); }
   .tent.photo img { width: 100%; height: 100%; display: block; }
   .tent.photo.mine { filter: drop-shadow(0 5px 4px rgba(40,20,10,.45)) drop-shadow(0 0 7px rgba(255,236,190,.95)); }
   @keyframes fadein { from { opacity: 0; } }
   @keyframes stand { from { transform: translate(-50%, -40%) scale(.4); opacity: 0; } to { transform: translate(-50%, -78%) scale(1); opacity: 1; } }
-  /* נייד: כל השולחן ברוחב המסך, בלי גלילה */
-  @media (max-width: 820px) {
-    .hall-scroll { overflow: hidden; }
-    .hall-crop { position: relative; width: 100%; aspect-ratio: 1180 / 600; overflow: hidden; container-type: inline-size; }
-    .hall-stage { position: absolute; min-width: 0; max-width: none; width: 130.17cqw; left: -15.25cqw; top: -16.95cqw; }
-    .tent { width: 12.5%; }
-    .tent.photo { width: 13.5%; }
-    .hall-head h2 { font-size: 36px; }
-    .hall-head p { font-size: 15px; }
-  }
 
   /* חלון */
   .dialog .script { color: var(--purple); }
@@ -109,7 +109,8 @@
     <div class="counter" id="counter" hidden></div>
     <div class="banner" id="banner"></div>
   </div>
-  <div class="hall-scroll" id="hallScroll"><div class="hall-crop"><div class="hall-stage" id="stage"></div></div></div>
+  <div class="hall-stage" id="stage"></div>
+  <div class="logo-pill"><img src="images/logo-shalhevet.png" alt="שלהבות חב״ד"><img class="coffee" src="images/logo-coffee-shalhevet.png" alt="Coffee שלהבות"></div>
 </section>
 
 <footer>שלהבות חב״ד · רשת חינוך חב״ד</footer>
@@ -140,14 +141,16 @@
 <script type="module">
 import { getState, post, store, fillBranches, apiBase } from './app.js';
 
-// 18 המפיות בתמונת האולם (פיקסלים מתוך 1536×1024), עם כיוון השעון מלמעלה
-const SEATS = [[657,289],[800,281],[948,293],[1067,319],[1168,358],[1237,412],[1267,482],[1240,552],[1158,625],[990,686],[785,707],[575,685],[420,627],[318,552],[297,478],[330,406],[418,348],[520,312]];
+// 19 המפיות בתמונת האולם לאורך (פיקסלים מתוך 1024×1536), עם כיוון השעון מלמעלה
+const SEATS = [[468,640],[565,640],[660,658],[744,682],[807,721],[846,770],[849,822],[817,877],[751,927],[648,957],[530,969],[416,956],[321,925],[246,880],[204,826],[200,776],[229,731],[289,688],[366,660]];
+const W = 1024, H = 1536;
+const napW = (y) => (4.6 + (y - 640) / 330 * 3.9).toFixed(2) + '%'; // המפיות למעלה קטנות יותר (פרספקטיבה)
 
 const $ = (id) => document.getElementById(id);
 const stage = $('stage'), modal = $('modal'), form = $('form');
 let state = null, chosen = null, busy = false;
 const mine = () => store.get('mySeat');
-const pct = (x, y) => `left:${x / 1536 * 100}%;top:${y / 1024 * 100}%`;
+const pct = (x, y) => `left:${x / W * 100}%;top:${y / H * 100}%;--w:${napW(y)}`;
 
 fillBranches($('fBranch'));
 $('fBranch').onchange = () => { $('otherWrap').hidden = $('fBranch').value !== 'אחר'; };
@@ -155,7 +158,7 @@ $('fBranch').onchange = () => { $('otherWrap').hidden = $('fBranch').value !== '
 SEATS.forEach(([x, y], i) => {
   const b = document.createElement('button');
   b.type = 'button'; b.className = 'nap'; b.dataset.seat = i + 1;
-  b.style.cssText = pct(x, y) + `;--fs:${(36 + (y - 280) / 430 * 20).toFixed(1)}cqw`;
+  b.style.cssText = pct(x, y) + ';--fs:46cqw';
   b.innerHTML = `<span class="num">${i + 1}</span>`;
   b.setAttribute('aria-label', `מקום ${i + 1} — פנוי, לחצי לשמירה`);
   b.onclick = () => openForm(i + 1);
@@ -233,13 +236,8 @@ form.onsubmit = async (e) => {
   busy = false; $('submit').disabled = false; $('submit').textContent = 'אישור הגעה';
 };
 
-// בטלפון: ממרכזים את השולחן בגלילה
-const sc = $('hallScroll');
-const centerHall = () => { const m = sc.scrollWidth - sc.clientWidth; if (m <= 0) return; sc.scrollLeft = -m / 2; if (sc.scrollLeft === 0) sc.scrollLeft = m / 2; };
-addEventListener('load', centerHall);
-
 async function refresh() { state = await getState(); render(); }
-await refresh(); centerHall();
+await refresh();
 setInterval(() => { if (!modal.classList.contains('open')) refresh(); }, 5000);
 </script>
 </body>
