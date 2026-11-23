@@ -30,7 +30,8 @@ button, input, select, textarea { font-family: var(--f); }
 .hall .bg { position: absolute; inset: 0; background: url('images/checks/hall-curtains-clean.jpg') center / 100% 100% no-repeat; }
 .hall::after { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 72%, transparent 30%, rgba(30,12,6,.35) 100%); pointer-events: none; }
 /* החריץ בתיבה שבתמונה — יעד הצ'ק העף */
-.box { position: absolute; left: 50%; bottom: 31.6%; width: 28%; aspect-ratio: 1; transform: translateX(-50%); z-index: 6; border: 0; padding: 0; background: none; cursor: pointer; transition: transform .25s; }
+.podium { position: absolute; left: 50%; bottom: 27.9%; width: 28.5%; transform: translateX(-50%); z-index: 5; filter: drop-shadow(0 .8vw .8vw rgba(90,60,30,.3)); pointer-events: none; }
+.box { position: absolute; left: 50%; bottom: 41.6%; width: 23%; aspect-ratio: 1; transform: translateX(-50%); z-index: 6; border: 0; padding: 0; background: none; cursor: pointer; transition: transform .25s; }
 .box img { width: 100%; height: 100%; display: block; filter: drop-shadow(0 1.4vw 1.2vw rgba(90,60,30,.35)); }
 .box:hover { transform: translateX(-50%) scale(1.03); }
 .box:hover img { filter: drop-shadow(0 1.4vw 1.2vw rgba(90,60,30,.35)) drop-shadow(0 0 1.6vw rgba(255,220,150,.9)); }
@@ -196,7 +197,7 @@ textarea.hand { resize: none; font-size: 2.1cqw; height: 3.1cqw; overflow: hidde
 
 @media (max-width: 700px) {
   body { overflow: hidden; }
-  .box { width: 40%; }
+
   .pill img { height: 28px; } .pill img + img { height: 20px; }
   .count { top: auto; right: 12px; bottom: 100px; padding: 6px 12px; }
 }
@@ -206,6 +207,7 @@ textarea.hand { resize: none; font-size: 2.1cqw; height: 3.1cqw; overflow: hidde
 <div class="hall" id="hall">
   <div class="bg"></div>
   <div class="slot" id="box"></div>
+  <img class="podium" src="images/checks/podium-small.png" alt="">
   <button class="box" id="open" aria-label="לשים צ׳ק בתיבה"><img src="images/checks/box-plain.png" alt="תיבת הצ׳קים"><span class="slot" id="box"></span></button>
 </div>
 
@@ -407,11 +409,11 @@ function nextReveal() {
 function slots(n) {
   const out = []; const perSide = Math.ceil(n / 2);
   const cols = perSide <= 6 ? 3 : 4;
-  const w = cols === 3 ? 4.6 : 4, gap = w * (cols === 3 ? 1.9 : 1.65);
+  const w = cols === 3 ? 4.4 : 3.8, gap = w * (cols === 3 ? 1.75 : 1.5);
   for (let i = 0; i < n; i++) {
     const side = i % 2 ? -1 : 1, k = Math.floor(i / 2), col = k % cols, row = Math.floor(k / cols);
-    const x = 50 + side * (11 + w * .8 + col * gap + (row % 2) * gap * .5);
-    out.push({ x, b: 31.5 + row * 2.6, w });
+    const x = 50 + side * (14 + w * .8 + col * gap + (row % 2) * gap * .5);
+    out.push({ x, b: 33 + row * 2.6, w });
   }
   return out;
 }
