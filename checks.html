@@ -168,6 +168,15 @@ textarea.hand { resize: none; font-size: 2.1cqw; height: 3.1cqw; overflow: hidde
 }
 
 /* ===== גילוי: מארז סגור ← הסרט נפתח והמכסה עף ← האיור עולה מתוך המארז ← השם נכתב ===== */
+body:not(.big) .gift { display: none; }
+/* בטלפון: אחרי השליחה רק אישור */
+.thanks { position: fixed; inset: 0; z-index: 48; display: grid; place-items: center; padding: 16px; background: rgba(30,12,6,.55); backdrop-filter: blur(4px); animation: fadeIn .4s; }
+.thanks[hidden] { display: none; }
+.thanks .card { background: #fbf6ec; color: var(--wine); border-radius: 22px; padding: 30px 28px 24px; text-align: center; max-width: 420px; width: 100%; box-shadow: 0 0 0 2px var(--gold-soft), 0 24px 50px -16px rgba(0,0,0,.6); animation: drop .7s cubic-bezier(.2,.9,.3,1.25); }
+.thanks .ok { width: 64px; height: 64px; margin: 0 auto 10px; border-radius: 50%; background: var(--wine); color: #fff; display: grid; place-items: center; font-size: 34px; }
+.thanks h2 { margin: 0; font-size: 30px; font-weight: 700; }
+.thanks p { margin: 8px 0 18px; font-size: 18px; color: #4a3428; }
+.thanks button { border: 0; cursor: pointer; background: var(--wine); color: #fff; font-family: var(--f); font-size: 17px; font-weight: 700; padding: 10px 24px; border-radius: 99px; }
 .reveal { position: fixed; inset: 0; z-index: 40; display: grid; place-items: center; pointer-events: none; background: radial-gradient(circle at 50% 45%, rgba(90,40,15,.45), rgba(20,8,4,.82) 70%); backdrop-filter: blur(4px); animation: fadeIn .4s; }
 .reveal[hidden] { display: none; }
 @keyframes fadeIn { from { opacity: 0; } }
@@ -283,6 +292,7 @@ textarea.hand { resize: none; font-size: 2.1cqw; height: 3.1cqw; overflow: hidde
   </form>
 </div>
 
+<div class="thanks" id="thanks" hidden><div class="card"><div class="ok">✓</div><h2>הצ׳ק התקבל!</h2><p>תודה רבה. המתנה שלך מופיעה עכשיו על המסך המרכזי.</p><button type="button" id="thanksClose">סגירה</button></div></div>
 <div class="reveal" id="reveal" hidden><div class="stagebox"><div class="pkg" id="rvPkg"></div><div class="rvname"><b id="rvName"></b><span id="rvText"></span></div></div><div class="close-hint">לחיצה בכל מקום — חזרה לתיבה</div></div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
@@ -292,6 +302,8 @@ const $ = (id) => document.getElementById(id);
 const params = new URLSearchParams(location.search);
 const screen = params.has('screen'), demo = params.has('demo');
 if (screen) document.body.classList.add('screen');
+const big = screen || demo; // רק במסך המרכזי רואים את המתנות
+if (big) document.body.classList.add('big');
 
 // קטגוריות: שם על הצ'ק + איור
 const CATS = [
@@ -354,9 +366,8 @@ $('check').onsubmit = async (e) => {
     if (demo) state.checks.push(c);
     seen.add(c.id);
     await flyIntoBox();
-    const shown = autoShow(c);
-    render();
-    await shown;
+    if (big) { const shown = autoShow(c); render(); await shown; }
+    else { render(); $('thanks').hidden = false; }
     $('fText').value = ''; cat = null; $('chips').querySelectorAll('.chip').forEach((x) => x.classList.remove('on'));
     $('amount').innerHTML = '<div class="empty">בחרי מתנה<br>והאיור יופיע כאן</div>';
   } catch { $('err').textContent = 'אין כרגע חיבור — נסי שוב בעוד רגע'; }
@@ -428,6 +439,7 @@ function shrinkTo(c) {
   });
 }
 function hideGift() { const rv = $('reveal'); if (rv.hidden) return; rv.classList.add('out'); setTimeout(() => { rv.hidden = true; }, 500); }
+$('thanksClose').onclick = () => { $('thanks').hidden = true; };
 $('reveal').onclick = () => { if ($('reveal').classList.contains('click')) hideGift(); };
 addEventListener('keydown', (e) => { if (e.key === 'Escape') hideGift(); });
 $('hall').addEventListener('click', (e) => {
@@ -455,7 +467,7 @@ function render() {
     if (!el) {
       el = document.createElement('div'); el.className = 'gift'; el.dataset.id = c.id;
       hall.appendChild(el);
-      if (!first && !seen.has(c.id)) autoShow(c);
+      if (big && !first && !seen.has(c.id)) autoShow(c);
       seen.add(c.id);
       if (!first && !showing.has(c.id)) el.classList.add('new');
     }
