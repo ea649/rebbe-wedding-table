@@ -347,7 +347,8 @@ $('chips').onclick = (e) => {
   else a.innerHTML = `<div class="pics${cat === 'hafrada' ? ' two' : ''}">${picsHtml({ cat })}</div>`;
 };
 const sig = () => { $('sig').textContent = $('fName').value.trim() || ' '; };
-$('fName').oninput = sig; sig();
+['input', 'change', 'keyup', 'blur', 'paste'].forEach((ev) => $('fName').addEventListener(ev, () => setTimeout(sig, 0))); sig();
+setInterval(sig, 800); // גם כשהדפדפן ממלא את השם אוטומטית
 
 const openCheck = () => { $('modal').hidden = false; $('check').classList.remove('in'); void $('check').offsetWidth; $('check').classList.add('in'); $('err').textContent = ''; ($('fName').value ? $('fText') : $('fName')).focus(); };
 const closeCheck = () => { if (!big) return; $('modal').hidden = true; };
