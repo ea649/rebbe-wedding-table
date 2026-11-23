@@ -31,16 +31,21 @@ button, input, select, textarea { font-family: var(--f); }
 .hall::after { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 72%, transparent 30%, rgba(30,12,6,.35) 100%); pointer-events: none; }
 /* החריץ בתיבה שבתמונה — יעד הצ'ק העף */
 .box { position: absolute; left: 50%; bottom: 12.3%; width: 26%; aspect-ratio: 1; transform: translateX(-50%); z-index: 6; border: 0; padding: 0; background: none; cursor: pointer; transition: transform .25s; }
-.box img { width: 100%; height: 100%; display: block; filter: drop-shadow(0 1.4vw 1.2vw rgba(90,60,30,.35)); }
+.box img { width: 100%; height: 100%; display: block; position: relative; }
+/* עומדת על הרצפה: צל מגע צמוד והשתקפות עדינה בשיש */
+.box::before { content: ''; position: absolute; left: 3%; right: 3%; top: 87%; height: 13%; background: radial-gradient(ellipse 50% 40% at 50% 38%, rgba(60,32,10,.75) 0%, rgba(60,32,10,.45) 45%, transparent 100%); filter: blur(5px); }
+.box::after { content: ''; position: absolute; left: 10%; right: 10%; top: 91.6%; height: 2.4%; border-radius: 50%; background: rgba(45,22,6,.7); filter: blur(3px); pointer-events: none; }
+.box .refl { position: absolute; left: 0; top: 86%; width: 100%; height: 100%; transform: scaleY(-1); opacity: .42; pointer-events: none; -webkit-mask-image: linear-gradient(to top, #000 0%, transparent 22%); mask-image: linear-gradient(to top, #000 0%, transparent 22%); }
 .box:hover { transform: translateX(-50%) scale(1.03); }
-.box:hover img { filter: drop-shadow(0 1.4vw 1.2vw rgba(90,60,30,.35)) drop-shadow(0 0 1.6vw rgba(255,220,150,.9)); }
+.box:hover img:not(.refl) { filter: drop-shadow(0 0 1.6vw rgba(255,220,150,.9)); }
 .box .slot { position: absolute; left: 50%; top: 18.8%; width: 50%; height: 0; transform: translateX(-50%); }
 
 /* כל מתנה במארז פתוח, האיור יוצא ממנו והשם כתוב מתחת */
 .gift { position: absolute; z-index: 4; transform: translate(-50%, 0); text-align: center; transition: left .8s, bottom .8s, width .8s, transform .25s; cursor: pointer; }
 .gift:hover { transform: translate(-50%, -4%) scale(1.05); }
 .pkg { position: relative; width: 100%; aspect-ratio: 1; }
-.pkg .base { position: absolute; inset: 0; width: 100%; height: 100%; filter: drop-shadow(0 .6vw .7vw rgba(50,25,5,.4)); }
+.pkg .base { position: absolute; inset: 0; width: 100%; height: 100%; }
+.gift .pkg::after { content: ''; position: absolute; left: 14%; right: 14%; top: 85%; height: 11%; background: radial-gradient(ellipse at 50% 35%, rgba(70,40,15,.55) 0%, rgba(70,40,15,.25) 42%, transparent 70%); filter: blur(2px); z-index: -1; }
 .pkg .pics { position: absolute; left: 6%; right: 6%; bottom: 22%; display: flex; justify-content: center; align-items: flex-end; }
 .pkg .pics.two { bottom: 34%; left: -4%; right: -4%; }
 .pkg .front { position: absolute; left: 0; top: 41.9%; width: 100%; display: block; pointer-events: none; }
@@ -192,6 +197,9 @@ textarea.hand { resize: none; font-size: 2.1cqw; height: 3.1cqw; overflow: hidde
 .reveal.named .rvname span { opacity: 1; transition: opacity .8s 1s; }
 .reveal.out { opacity: 0; transition: opacity .5s; }
 .reveal.click { pointer-events: auto; cursor: pointer; }
+.reveal:not(.click) .close-hint { display: none; }
+.reveal.shrinking { background: transparent; backdrop-filter: none; transition: background .9s, backdrop-filter .9s; }
+.reveal.shrinking .rvname { opacity: 0; transition: opacity .3s; }
 .reveal .close-hint { position: absolute; left: 50%; bottom: 3vh; transform: translateX(-50%); color: #f3dfae; font-size: clamp(14px, 1.1vw, 20px); opacity: .85; }
 
 /* הצ'ק עף לתוך התיבה */
@@ -211,7 +219,7 @@ textarea.hand { resize: none; font-size: 2.1cqw; height: 3.1cqw; overflow: hidde
 <div class="hall" id="hall">
   <div class="bg"></div>
   <div class="slot" id="box"></div>
-  <button class="box" id="open" aria-label="לשים צ׳ק בתיבה"><img src="images/checks/box-plain.png" alt="תיבת הצ׳קים"><span class="slot" id="box"></span></button>
+  <button class="box" id="open" aria-label="לשים צ׳ק בתיבה"><img class="refl" src="images/checks/box-plain.png" alt=""><img src="images/checks/box-plain.png" alt="תיבת הצ׳קים"><span class="slot" id="box"></span></button>
 </div>
 
 <span class="bh">ב״ה</span>
@@ -222,7 +230,7 @@ textarea.hand { resize: none; font-size: 2.1cqw; height: 3.1cqw; overflow: hidde
 </header>
 
 <div class="count" id="count" hidden><b>0</b><span>צ׳קים בתיבה</span></div>
-<div class="qr" id="qrBox"><div id="qr"></div>סרקי ושימי צ׳ק</div>
+<div class="qr" id="qrBox"><div id="qr"></div>סרקי להכנסת צ׳ק</div>
 
 <!-- הצ'ק -->
 <div class="modal" id="modal" hidden>
@@ -344,9 +352,9 @@ $('check').onsubmit = async (e) => {
     if (demo) state.checks.push(c);
     seen.add(c.id);
     await flyIntoBox();
+    const shown = autoShow(c);
     render();
-    const nw = $('hall').querySelector(`.gift[data-id="${c.id}"]`);
-    if (nw) { const r = nw.getBoundingClientRect(); sparkles(r.left + r.width / 2, r.top + r.height / 2); }
+    await shown;
     $('fText').value = ''; cat = null; $('chips').querySelectorAll('.chip').forEach((x) => x.classList.remove('on'));
     $('amount').innerHTML = '<div class="empty">בחרי מתנה<br>והאיור יופיע כאן</div>';
   } catch { $('err').textContent = 'אין כרגע חיבור — נסי שוב בעוד רגע'; }
@@ -377,16 +385,48 @@ function sparkles(x, y) {
 
 // לחיצה על מתנה: האיור בגדול והטקסט שהמנהלת כתבה
 const showing = new Set();
-function showGift(c) {
-  const rv = $('reveal'); rv.className = 'reveal click'; rv.hidden = false;
+function showGift(c, auto) {
+  const rv = $('reveal'); rv.className = 'reveal' + (auto ? '' : ' click'); rv.hidden = false;
+  const sb = rv.querySelector('.stagebox'); sb.style.transition = ''; sb.style.transform = '';
   const pk = $('rvPkg'); pk.innerHTML = pkgHtml(c);
   pk.style.animation = 'none'; void pk.offsetWidth; pk.style.animation = '';
   $('rvName').textContent = c.name + (c.branch ? ' · ' + c.branch : '');
   $('rvText').textContent = CAT_NAME[c.cat] && c.cat !== 'other' ? CAT_NAME[c.cat] + (c.text ? ' — ' + c.text : '') : c.text;
   requestAnimationFrame(() => { rv.classList.add('open'); setTimeout(() => rv.classList.add('named'), 700); });
 }
+// הצגה אוטומטית של מתנה חדשה: בגדול עם השם והטקסט, ואז מתכווצת למקומה ליד התיבה
+const showQ = []; let showBusy = false;
+function autoShow(c) { showing.add(c.id); return new Promise((done) => { showQ.push([c, done]); if (!showBusy) nextShow(); }); }
+function nextShow() {
+  const it = showQ.shift(); if (!it) { showBusy = false; return; }
+  showBusy = true; const [c, done] = it;
+  showGift(c, true);
+  const finish = () => shrinkTo(c).then(() => { showing.delete(c.id); render(); done(); nextShow(); });
+  const needWait = c.cat === 'other' && !c.img && !demo;
+  if (!needWait) return void setTimeout(finish, 6500);
+  const t0 = Date.now();
+  const tick = setInterval(() => {
+    const cur = (state.checks || []).find((x) => x.id === c.id);
+    const box = $('rvPkg').querySelector('.pics');
+    if (cur && cur.img && !box.querySelector('img')) { box.innerHTML = picsHtml(cur); clearInterval(tick); setTimeout(finish, 6000); }
+    if (Date.now() - t0 > 90000) { clearInterval(tick); finish(); }
+  }, 1000);
+}
+function shrinkTo(c) {
+  return new Promise((ok) => {
+    const rv = $('reveal'), sb = rv.querySelector('.stagebox');
+    const el = $('hall').querySelector(`.gift[data-id="${c.id}"]`);
+    if (!el) { hideGift(); return void setTimeout(ok, 500); }
+    const a = $('rvPkg').getBoundingClientRect(), b = el.querySelector('.pkg').getBoundingClientRect();
+    rv.classList.add('shrinking');
+    sb.style.transformOrigin = `${a.left + a.width / 2 - sb.getBoundingClientRect().left}px ${a.top + a.height / 2 - sb.getBoundingClientRect().top}px`;
+    sb.style.transition = 'transform 1s cubic-bezier(.5,0,.3,1)';
+    sb.style.transform = `translate(${b.left + b.width / 2 - (a.left + a.width / 2)}px, ${b.top + b.height / 2 - (a.top + a.height / 2)}px) scale(${b.width / a.width})`;
+    setTimeout(() => { rv.hidden = true; rv.className = 'reveal'; sb.style.transition = ''; sb.style.transform = ''; ok(); }, 1000);
+  });
+}
 function hideGift() { const rv = $('reveal'); if (rv.hidden) return; rv.classList.add('out'); setTimeout(() => { rv.hidden = true; }, 500); }
-$('reveal').onclick = hideGift;
+$('reveal').onclick = () => { if ($('reveal').classList.contains('click')) hideGift(); };
 addEventListener('keydown', (e) => { if (e.key === 'Escape') hideGift(); });
 $('hall').addEventListener('click', (e) => {
   const g = e.target.closest('.gift'); if (!g) return;
@@ -413,6 +453,7 @@ function render() {
     if (!el) {
       el = document.createElement('div'); el.className = 'gift'; el.dataset.id = c.id;
       hall.appendChild(el);
+      if (!first && !seen.has(c.id)) autoShow(c);
       seen.add(c.id);
       if (!first && !showing.has(c.id)) el.classList.add('new');
     }
