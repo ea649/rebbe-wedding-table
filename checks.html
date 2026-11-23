@@ -346,7 +346,7 @@ $('chips').onclick = (e) => {
   if (cat === 'other') { a.innerHTML = '<div class="magic"><b>✨</b>כתבי בפירוט מה עשית —<br>ונצייר לך איור מיוחד באותו רגע</div>'; $('fText').focus(); }
   else a.innerHTML = `<div class="pics${cat === 'hafrada' ? ' two' : ''}">${picsHtml({ cat })}</div>`;
 };
-const sig = () => { $('sig').textContent = $('fName').value.trim() || ' '; };
+const sig = () => { $('sig').textContent = $('fName').value.trim().split(/s+/)[0] || ' '; }; // חתימה — שם פרטי בלבד
 ['input', 'change', 'keyup', 'blur', 'paste'].forEach((ev) => $('fName').addEventListener(ev, () => setTimeout(sig, 0))); sig();
 setInterval(sig, 800); // גם כשהדפדפן ממלא את השם אוטומטית
 
