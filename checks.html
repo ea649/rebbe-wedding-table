@@ -27,26 +27,28 @@ button, input, select, textarea { font-family: var(--f); }
 .hall { position: fixed; left: 50%; bottom: -5vh; width: max(100vw, 150vh); height: max(66.667vw, 100vh); transform: translateX(-50%);
   overflow: hidden; }
 /* הרקע עמום ומטושטש — רק הבמה והתיבה חדות */
-.hall .bg { position: absolute; inset: 0; background: url('images/checks/hall-curtains-clean.jpg') center / 100% 100% no-repeat; }
+.hall .bg { position: absolute; inset: 0; background: url('images/checks/hall-floor.jpg') center / 100% 100% no-repeat; }
 .hall::after { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 72%, transparent 30%, rgba(30,12,6,.35) 100%); pointer-events: none; }
 /* החריץ בתיבה שבתמונה — יעד הצ'ק העף */
-.podium { position: absolute; left: 50%; bottom: 27.9%; width: 28.5%; transform: translateX(-50%); z-index: 5; filter: drop-shadow(0 .8vw .8vw rgba(90,60,30,.3)); pointer-events: none; }
-.box { position: absolute; left: 50%; bottom: 41.6%; width: 23%; aspect-ratio: 1; transform: translateX(-50%); z-index: 6; border: 0; padding: 0; background: none; cursor: pointer; transition: transform .25s; }
+.box { position: absolute; left: 50%; bottom: 12.3%; width: 26%; aspect-ratio: 1; transform: translateX(-50%); z-index: 6; border: 0; padding: 0; background: none; cursor: pointer; transition: transform .25s; }
 .box img { width: 100%; height: 100%; display: block; filter: drop-shadow(0 1.4vw 1.2vw rgba(90,60,30,.35)); }
 .box:hover { transform: translateX(-50%) scale(1.03); }
 .box:hover img { filter: drop-shadow(0 1.4vw 1.2vw rgba(90,60,30,.35)) drop-shadow(0 0 1.6vw rgba(255,220,150,.9)); }
 .box .slot { position: absolute; left: 50%; top: 18.8%; width: 50%; height: 0; transform: translateX(-50%); }
 
 /* כל מתנה במארז פתוח, האיור יוצא ממנו והשם כתוב מתחת */
-.gift { position: absolute; z-index: 4; transform: translate(-50%, 0); text-align: center; transition: left .8s, bottom .8s, width .8s; }
+.gift { position: absolute; z-index: 4; transform: translate(-50%, 0); text-align: center; transition: left .8s, bottom .8s, width .8s, transform .25s; cursor: pointer; }
+.gift:hover { transform: translate(-50%, -4%) scale(1.05); }
 .pkg { position: relative; width: 100%; aspect-ratio: 1; }
 .pkg .base { position: absolute; inset: 0; width: 100%; height: 100%; filter: drop-shadow(0 .6vw .7vw rgba(50,25,5,.4)); }
-.pkg .pics { position: absolute; left: -30%; right: -30%; bottom: 66%; display: flex; justify-content: center; align-items: flex-end; }
+.pkg .pics { position: absolute; left: 6%; right: 6%; bottom: 22%; display: flex; justify-content: center; align-items: flex-end; }
+.pkg .pics.two { bottom: 34%; left: -4%; right: -4%; }
+.pkg .front { position: absolute; left: 0; top: 41.9%; width: 100%; display: block; pointer-events: none; }
 .pkg .pics > * { animation: float 3.2s ease-in-out infinite; }
 .pkg .pics > * + * { animation-delay: -1.6s; }
-@keyframes float { 0%, 100% { transform: translateY(0) rotate(-3deg); } 50% { transform: translateY(-7%) rotate(3deg); } }
+@keyframes float { 0%, 100% { transform: translateY(0) rotate(-2deg); } 50% { transform: translateY(-5%) rotate(2deg); } }
 .pkg .pics img { width: 100%; display: block; filter: drop-shadow(0 .3vw .5vw rgba(40,20,5,.35)); }
-.pkg .pics.two img { width: 60%; flex: none; } .pkg .pics.two img + img { margin-inline-start: -10%; margin-bottom: 14%; }
+.pkg .pics.two img { width: 56%; flex: none; } .pkg .pics.two img + img { margin-inline-start: -8%; }
 .gift .nm { display: block; margin-top: .3vw; color: var(--wine); font-family: 'Levin', var(--f); font-size: clamp(15px, 1.4vw, 28px); line-height: 1.05; white-space: nowrap;
   text-shadow: 0 0 6px #fff8ea, 0 0 12px #fff8ea, 0 0 3px #fff; }
 .gift.new { animation: rise 1s cubic-bezier(.2,.9,.3,1.2); }
@@ -164,7 +166,7 @@ textarea.hand { resize: none; font-size: 2.1cqw; height: 3.1cqw; overflow: hidde
 .reveal { position: fixed; inset: 0; z-index: 40; display: grid; place-items: center; pointer-events: none; background: radial-gradient(circle at 50% 45%, rgba(90,40,15,.45), rgba(20,8,4,.82) 70%); backdrop-filter: blur(4px); animation: fadeIn .4s; }
 .reveal[hidden] { display: none; }
 @keyframes fadeIn { from { opacity: 0; } }
-.reveal .stagebox { position: relative; width: min(38vh, 62vw); margin-top: min(30vh, 40vw); }
+.reveal .stagebox { position: relative; width: min(36vh, 62vw); margin-top: min(14vh, 30vw); margin-bottom: 18vh; }
 .reveal .pkg { animation: drop .8s cubic-bezier(.2,.9,.3,1.25); }
 @keyframes drop { from { transform: translateY(-60vh) scale(.6); opacity: 0; } }
 .reveal .pkg .closed { position: absolute; inset: 0; width: 100%; height: 100%; }
@@ -188,7 +190,9 @@ textarea.hand { resize: none; font-size: 2.1cqw; height: 3.1cqw; overflow: hidde
 .reveal .rvname span { display: block; color: #fff6e0; font-size: clamp(17px, 1.6vw, 28px); margin-top: 4px; text-shadow: 0 1px 6px rgba(0,0,0,.85); opacity: 0; }
 .reveal.named .rvname b { clip-path: inset(0 0 0 0); transition: clip-path 1.4s ease; }
 .reveal.named .rvname span { opacity: 1; transition: opacity .8s 1s; }
-.reveal.out { opacity: 0; transition: opacity .8s; }
+.reveal.out { opacity: 0; transition: opacity .5s; }
+.reveal.click { pointer-events: auto; cursor: pointer; }
+.reveal .close-hint { position: absolute; left: 50%; bottom: 3vh; transform: translateX(-50%); color: #f3dfae; font-size: clamp(14px, 1.1vw, 20px); opacity: .85; }
 
 /* הצ'ק עף לתוך התיבה */
 .flying { position: fixed; z-index: 45; pointer-events: none; transition: transform 1.1s cubic-bezier(.5,0,.6,1), opacity .3s 1s; }
@@ -207,7 +211,6 @@ textarea.hand { resize: none; font-size: 2.1cqw; height: 3.1cqw; overflow: hidde
 <div class="hall" id="hall">
   <div class="bg"></div>
   <div class="slot" id="box"></div>
-  <img class="podium" src="images/checks/podium-small.png" alt="">
   <button class="box" id="open" aria-label="לשים צ׳ק בתיבה"><img src="images/checks/box-plain.png" alt="תיבת הצ׳קים"><span class="slot" id="box"></span></button>
 </div>
 
@@ -272,7 +275,7 @@ textarea.hand { resize: none; font-size: 2.1cqw; height: 3.1cqw; overflow: hidde
   </form>
 </div>
 
-<div class="reveal" id="reveal" hidden><div class="stagebox"><div class="pkg" id="rvPkg"></div><div class="rvname"><b id="rvName"></b><span id="rvText"></span></div></div></div>
+<div class="reveal" id="reveal" hidden><div class="stagebox"><div class="pkg" id="rvPkg"></div><div class="rvname"><b id="rvName"></b><span id="rvText"></span></div></div><div class="close-hint">לחיצה בכל מקום — חזרה לתיבה</div></div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
 <script type="module">
@@ -293,7 +296,7 @@ const CAT_NAME = Object.fromEntries(CATS);
 const pics = (c) => c.cat === 'hafrada' ? ['images/checks/hafrada-girls.png', 'images/checks/hafrada-boys.png']
   : c.cat === 'other' ? (c.img ? [(c.img.startsWith('/') ? (apiBase() || '') : '') + c.img] : [])
   : [`images/checks/${c.cat}.png`];
-const pkgHtml = (c) => `<img class="base" src="images/checks/gift-flaps-open.png" alt=""><div class="pics${c.cat === 'hafrada' ? ' two' : ''}">${picsHtml(c)}</div>`;
+const pkgHtml = (c) => `<img class="base" src="images/checks/gift-flaps-open.png" alt=""><div class="pics${c.cat === 'hafrada' ? ' two' : ''}">${picsHtml(c)}</div><img class="front" src="images/checks/gift-front.png" alt="">`;
 const picsHtml = (c) => { const p = pics(c); return p.length ? p.map((s) => `<img src="${esc(s)}" alt="">`).join('') : '<div class="pending"><i></i></div>'; };
 
 // ===== הצ'ק =====
@@ -341,8 +344,9 @@ $('check').onsubmit = async (e) => {
     if (demo) state.checks.push(c);
     seen.add(c.id);
     await flyIntoBox();
-    await reveal(c);
     render();
+    const nw = $('hall').querySelector(`.gift[data-id="${c.id}"]`);
+    if (nw) { const r = nw.getBoundingClientRect(); sparkles(r.left + r.width / 2, r.top + r.height / 2); }
     $('fText').value = ''; cat = null; $('chips').querySelectorAll('.chip').forEach((x) => x.classList.remove('on'));
     $('amount').innerHTML = '<div class="empty">בחרי מתנה<br>והאיור יופיע כאן</div>';
   } catch { $('err').textContent = 'אין כרגע חיבור — נסי שוב בעוד רגע'; }
@@ -371,49 +375,32 @@ function sparkles(x, y) {
   }
 }
 
-// גילוי המתנה מעל התיבה
-const rq = []; let revealing = false; const showing = new Set();
-function reveal(c) { showing.add(c.id); return new Promise((done) => { rq.push([c, () => { showing.delete(c.id); const el = $('hall').querySelector(`.gift[data-id="${c.id}"]`); if (el) { el.style.visibility = ''; el.classList.remove('new'); void el.offsetWidth; el.classList.add('new'); } done(); }]); if (!revealing) nextReveal(); }); }
-function nextReveal() {
-  const it = rq.shift(); if (!it) { revealing = false; return; }
-  revealing = true; const [c, done] = it;
-  const rv = $('reveal'); rv.className = 'reveal'; rv.hidden = false;
-  const pk = $('rvPkg');
-  pk.innerHTML = pkgHtml(c) + '<img class="closed" src="images/checks/gift-flaps-closed.png" alt="">';
+// לחיצה על מתנה: האיור בגדול והטקסט שהמנהלת כתבה
+const showing = new Set();
+function showGift(c) {
+  const rv = $('reveal'); rv.className = 'reveal click'; rv.hidden = false;
+  const pk = $('rvPkg'); pk.innerHTML = pkgHtml(c);
   pk.style.animation = 'none'; void pk.offsetWidth; pk.style.animation = '';
   $('rvName').textContent = c.name + (c.branch ? ' · ' + c.branch : '');
   $('rvText').textContent = CAT_NAME[c.cat] && c.cat !== 'other' ? CAT_NAME[c.cat] + (c.text ? ' — ' + c.text : '') : c.text;
-  const later = (ms, f) => setTimeout(f, ms);
-  later(800, () => rv.classList.add('shake'));
-  later(1900, () => rv.classList.add('open'));
-  later(3000, () => rv.classList.add('named'));
-  // "אחר" — מחכים לאיור שנוצר (עד דקה וחצי), ואז הוא עולה מתוך המארז
-  const needWait = c.cat === 'other' && !c.img && !demo;
-  const t0 = Date.now(); let ended = false;
-  const tick = needWait ? setInterval(() => {
-    const cur = (state.checks || []).find((x) => x.id === c.id);
-    const box = pk.querySelector('.pics');
-    if (cur && cur.img && !box.querySelector('img')) {
-      box.innerHTML = picsHtml(cur);
-      /* האנימציה של .reveal.open .pics > * מופעלת לבד על האיור החדש */
-      clearInterval(tick); later(6000, finish);
-    }
-    if (Date.now() - t0 > 90000) { clearInterval(tick); finish(); }
-  }, 1000) : null;
-  if (!needWait) later(8500, finish);
-  function finish() { if (ended) return; ended = true; if (tick) clearInterval(tick); rv.classList.add('out'); later(800, () => { rv.hidden = true; done(); nextReveal(); }); }
+  requestAnimationFrame(() => { rv.classList.add('open'); setTimeout(() => rv.classList.add('named'), 700); });
 }
+function hideGift() { const rv = $('reveal'); if (rv.hidden) return; rv.classList.add('out'); setTimeout(() => { rv.hidden = true; }, 500); }
+$('reveal').onclick = hideGift;
+addEventListener('keydown', (e) => { if (e.key === 'Escape') hideGift(); });
+$('hall').addEventListener('click', (e) => {
+  const g = e.target.closest('.gift'); if (!g) return;
+  const c = (state.checks || []).find((x) => x.id === g.dataset.id); if (c) showGift(c);
+});
 
 // ===== המתנות סביב התיבה =====
 // משבצות: מימין ומשמאל לתיבה, שורות על הרצפה ומעליה
 function slots(n) {
-  const out = []; const perSide = Math.ceil(n / 2);
-  const cols = perSide <= 6 ? 3 : 4;
-  const w = cols === 3 ? 4.4 : 3.8, gap = w * (cols === 3 ? 1.75 : 1.5);
+  const out = []; const W = [10.2, 8.8, 7.5, 6.4], B = [7, 15.5, 23, 29.5];
   for (let i = 0; i < n; i++) {
-    const side = i % 2 ? -1 : 1, k = Math.floor(i / 2), col = k % cols, row = Math.floor(k / cols);
-    const x = 50 + side * (14 + w * .8 + col * gap + (row % 2) * gap * .5);
-    out.push({ x, b: 33 + row * 2.6, w });
+    const side = i % 2 ? -1 : 1, k = Math.floor(i / 2), col = k % 3, row = Math.min(3, Math.floor(k / 3));
+    const w = W[row], x = 50 + side * (15 + w * .6 + col * w * 1.08 + (row % 2) * w * .5);
+    out.push({ x, b: B[row], w });
   }
   return out;
 }
@@ -426,7 +413,7 @@ function render() {
     if (!el) {
       el = document.createElement('div'); el.className = 'gift'; el.dataset.id = c.id;
       hall.appendChild(el);
-      if (!first && !seen.has(c.id)) { seen.add(c.id); reveal(c); }
+      seen.add(c.id);
       if (!first && !showing.has(c.id)) el.classList.add('new');
     }
     if (el.dataset.key !== key) {
