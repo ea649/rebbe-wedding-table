@@ -1,0 +1,428 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>תיבת הצ׳קים לרבי ולרבנית</title>
+<meta name="description" content="התוועדות החתונה · שולחן מנהלות שלהבות חב״ד — הצ׳ק שלך לרבי ולרבנית">
+<meta property="og:title" content="תיבת הצ׳קים לרבי ולרבנית">
+<meta property="og:image" content="https://ea649.github.io/rebbe-wedding-table/images/checks/box.png">
+<style>
+@font-face { font-family: 'Tamlil'; src: url('fonts/FbTamlil-Regular.otf') format('opentype'); font-weight: 400; font-display: swap; }
+@font-face { font-family: 'Tamlil'; src: url('fonts/FbTamlil-Bold.otf') format('opentype'); font-weight: 700; font-display: swap; }
+:root {
+  --wine: #6e1424; --wine-deep: #3a0c14; --gold: #b08a48; --gold-soft: #e2c788; --ivory: #fbf6ec;
+  --ink: #1f2b5a; /* דיו כחול של עט */
+  --check: #e9f1f6; --check-line: #9db4c4; --check-txt: #2e4a5e;
+  --f: 'Tamlil', sans-serif;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html, body { margin: 0; height: 100%; }
+body { font-family: var(--f); background: #2a1a10; color: #fff; overflow: hidden; }
+button, input, select, textarea { font-family: var(--f); }
+
+/* ===== האולם: הרקע ממלא את המסך, התיבה יושבת על הבמה העגולה ===== */
+.hall { position: fixed; left: 50%; top: 50%; width: max(100vw, 150vh); height: max(66.667vw, 100vh); transform: translate(-50%, -50%);
+  background: url('images/checks/hall-bg.jpg') center / 100% 100% no-repeat; }
+.hall::after { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 70%, transparent 35%, rgba(30,12,6,.45) 100%); pointer-events: none; }
+.box { position: absolute; left: 50%; width: 30%; bottom: 33.5%; transform: translateX(-50%); z-index: 5; filter: drop-shadow(0 1.2vw 1.4vw rgba(60,30,10,.45)); }
+.box img { width: 100%; display: block; }
+.box.pulse { animation: pulse .7s ease; }
+@keyframes pulse { 40% { transform: translateX(-50%) scale(1.04); } }
+
+/* מתנות סביב התיבה */
+.gift { position: absolute; z-index: 4; transform: translate(-50%, 0); text-align: center; transition: left .8s, bottom .8s, width .8s; }
+.gift .pics { display: flex; justify-content: center; align-items: flex-end; }
+.gift img { width: 100%; display: block; filter: drop-shadow(0 .5vw .6vw rgba(40,20,5,.45)); }
+.gift .pics.two img { width: 62%; flex: none; } .gift .pics.two img + img { margin-inline-start: -24%; }
+.gift .nm { display: inline-block; margin-top: -.2vw; background: rgba(251,246,236,.92); color: var(--wine); font-weight: 700; font-size: clamp(10px, .85vw, 17px); padding: .1em .7em; border-radius: 99px; box-shadow: 0 0 0 1px var(--gold); white-space: nowrap; }
+.gift.new { animation: rise 1s cubic-bezier(.2,.9,.3,1.2); }
+@keyframes rise { from { transform: translate(-50%, 40%) scale(.3); opacity: 0; } }
+.pending { aspect-ratio: 1; width: 100%; display: grid; place-items: center; }
+.pending i { width: 60%; aspect-ratio: 1; border-radius: 50%; background: radial-gradient(circle, rgba(255,240,200,.95), rgba(226,199,136,.5) 45%, transparent 70%); animation: glow 1.4s ease-in-out infinite alternate; }
+@keyframes glow { to { transform: scale(1.25); opacity: .6; } }
+
+/* ===== כותרת ===== */
+.top { position: fixed; top: 0; left: 0; right: 0; z-index: 10; text-align: center; padding: 18px 16px 0; pointer-events: none; }
+.bh { position: fixed; top: 12px; left: 18px; font-size: 15px; color: #fff8e6; z-index: 11; text-shadow: 0 1px 4px rgba(0,0,0,.5); }
+.pill { display: inline-flex; align-items: center; gap: 12px; background: rgba(251,246,236,.94); padding: 6px 18px; border-radius: 99px; box-shadow: 0 0 0 1px var(--gold), 0 10px 30px -10px rgba(0,0,0,.5); }
+.pill img { height: 38px; display: block; } .pill img + img { height: 28px; padding-inline-start: 12px; border-inline-start: 1px solid rgba(110,20,36,.25); }
+.top h1 { margin: 10px 0 0; font-weight: 700; font-size: clamp(30px, 4.2vw, 68px); line-height: 1.05; color: #fff; text-shadow: 0 2px 4px rgba(60,20,0,.55), 0 0 30px rgba(120,50,0,.45); }
+.top .sub { font-size: clamp(15px, 1.5vw, 26px); color: #fff3d6; text-shadow: 0 1px 6px rgba(0,0,0,.7); }
+
+/* כפתור */
+.cta { position: fixed; left: 50%; bottom: 4vh; transform: translateX(-50%); z-index: 12; border: 0; cursor: pointer; background: linear-gradient(160deg, #8c1e2e, #6e1424 55%, #43091a); color: #fff;
+  font-size: clamp(20px, 2vw, 34px); font-weight: 700; padding: .5em 1.6em .6em; border-radius: 99px; box-shadow: 0 0 0 2px var(--gold-soft), 0 18px 40px -12px rgba(40,5,10,.8); transition: transform .2s; white-space: nowrap; }
+.cta:hover { transform: translateX(-50%) translateY(-3px); }
+.cta small { display: block; font-size: .5em; font-weight: 400; opacity: .9; }
+.count { position: fixed; right: 2.2vw; top: 3vh; z-index: 11; text-align: center; background: rgba(251,246,236,.92); color: var(--wine); border-radius: 18px; padding: 10px 18px; box-shadow: 0 0 0 1px var(--gold); }
+.count b { display: block; font-size: clamp(28px, 3vw, 52px); line-height: 1; }
+.count span { font-size: clamp(13px, 1vw, 18px); }
+.qr { position: fixed; left: 2.2vw; bottom: 4vh; z-index: 11; background: #fff; padding: 10px; border-radius: 12px; box-shadow: 0 0 0 2px var(--gold); text-align: center; color: var(--wine); font-weight: 700; font-size: 15px; }
+body:not(.screen) .qr { display: none; }
+
+/* ===== הצ'ק ===== */
+.modal { position: fixed; inset: 0; z-index: 50; display: grid; place-items: center; background: rgba(25,10,5,.55); backdrop-filter: blur(3px); padding: 16px; overflow: auto; }
+.modal[hidden] { display: none; }
+.check { position: relative; width: min(1180px, 96vw); aspect-ratio: 2.25 / 1; container-type: inline-size; color: var(--check-txt); direction: rtl;
+  background:
+    repeating-linear-gradient(115deg, rgba(120,160,185,.07) 0 2px, transparent 2px 7px),
+    radial-gradient(ellipse at 30% 40%, #f6fafc 0%, var(--check) 60%, #dce8ef 100%);
+  border-radius: .6cqw; box-shadow: 0 3cqw 6cqw -2cqw rgba(0,0,0,.6); padding: 1.6cqw 3cqw 4.2cqw 5.6cqw; display: flex; flex-direction: column; transform-origin: 50% 50%; }
+.check.in { animation: checkIn .55s cubic-bezier(.2,.9,.3,1.15); }
+@keyframes checkIn { from { transform: translateY(30px) scale(.9) rotate(-2deg); opacity: 0; } }
+/* פס צד שמאלי כמו בצ'ק אמיתי */
+.check .side { position: absolute; left: 0; top: 0; bottom: 0; width: 3.6cqw; background: linear-gradient(180deg, #8c1e2e, #6e1424 60%, #43091a); border-radius: .6cqw 0 0 .6cqw; display: grid; place-items: center; }
+.check .side span { writing-mode: vertical-rl; transform: rotate(180deg); color: var(--gold-soft); font-size: 1.25cqw; letter-spacing: .25em; white-space: nowrap; }
+.check .x { position: absolute; top: .8cqw; left: 4.6cqw; width: 2.6cqw; height: 2.6cqw; border: 0; border-radius: 50%; background: rgba(46,74,94,.12); color: var(--check-txt); font-size: 1.8cqw; line-height: 1; cursor: pointer; }
+.ck-head { display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 1px solid var(--check-line); padding-bottom: .8cqw; }
+.holder { font-size: 1.55cqw; line-height: 1.6; }
+.holder .row { display: flex; align-items: baseline; gap: .6cqw; }
+.holder label { font-weight: 700; color: var(--check-txt); }
+.bank { display: flex; align-items: center; gap: 1cqw; text-align: left; margin-left: 3cqw; }
+.bank img { height: 4.2cqw; display: block; }
+.bank div { font-size: 1.2cqw; line-height: 1.3; text-align: right; }
+.bank div b { display: block; font-size: 1.6cqw; color: var(--wine); }
+.stamp { position: absolute; top: 6.2cqw; left: 40%; border: 2px solid var(--check-txt); padding: .15cqw 1.2cqw; font-size: 1.5cqw; font-weight: 700; transform: rotate(-8deg); opacity: .85; }
+.stamp small { display: block; font-size: .8cqw; font-weight: 400; text-align: center; }
+
+.line { display: flex; align-items: flex-end; gap: 1.2cqw; margin-top: 1.4cqw; }
+.lbl { flex: none; font-size: 1.6cqw; font-weight: 700; line-height: 1.1; text-align: center; }
+.lbl small { display: block; font-size: .85cqw; font-weight: 400; letter-spacing: .1em; direction: ltr; }
+.fill { flex: 1; border-bottom: 1.5px solid var(--check-txt); min-height: 3.4cqw; display: flex; align-items: flex-end; padding: 0 .8cqw .2cqw; }
+.hand { color: var(--ink); font-size: 2.7cqw; font-weight: 700; line-height: 1.1; }
+input.hand, textarea.hand, select.hand { width: 100%; border: 0; background: transparent; outline: none; padding: 0; }
+input.hand::placeholder, textarea.hand::placeholder { color: rgba(31,43,90,.35); font-weight: 400; }
+.holder input.hand { font-size: 1.9cqw; border-bottom: 1px dotted var(--check-line); width: 18cqw; }
+.holder select.hand { font-size: 1.7cqw; border-bottom: 1px dotted var(--check-line); width: 18cqw; cursor: pointer; }
+
+/* שורת "על סך" עם הקטגוריות ותיבת הסכום שמציגה את האיור */
+.sum { flex: 1; display: flex; gap: 2cqw; margin-top: 1.6cqw; align-items: stretch; }
+.sum .line.cats-line { align-items: flex-start; }
+.sum .line.cats-line .lbl { padding-top: .3cqw; }
+.sum .main { flex: 1; display: flex; flex-direction: column; justify-content: space-between; gap: 1.2cqw; }
+.chips { display: flex; flex-wrap: wrap; gap: .7cqw; }
+.chip { border: 1.5px solid var(--check-line); background: rgba(255,255,255,.7); color: var(--check-txt); border-radius: 99px; padding: .25cqw 1cqw .35cqw; font-size: 1.55cqw; cursor: pointer; transition: .15s; }
+.chip:hover { border-color: var(--wine); }
+.chip.on { background: var(--wine); color: #fff; border-color: var(--wine); box-shadow: 0 .3cqw .8cqw -.2cqw rgba(110,20,36,.6); }
+.chip.other { border-style: dashed; }
+.amount { flex: none; width: 23cqw; border: 1.5px solid var(--check-txt); background: rgba(255,255,255,.55); display: grid; place-items: center; position: relative; padding: .6cqw; }
+.amount::before { content: 'המתנה'; position: absolute; top: -1.1cqw; right: 1cqw; background: var(--check); padding: 0 .5cqw; font-size: 1.1cqw; font-weight: 700; }
+.amount .pics { display: flex; justify-content: center; align-items: flex-end; width: 100%; height: 100%; }
+.amount img { max-width: 100%; max-height: 19cqw; object-fit: contain; filter: drop-shadow(0 .4cqw .5cqw rgba(0,0,0,.3)); animation: pop .4s ease; }
+.amount .pics.two img { max-width: 55%; } .amount .pics.two img + img { margin-inline-start: -8%; }
+.amount .empty { font-size: 1.2cqw; color: rgba(46,74,94,.55); text-align: center; line-height: 1.3; }
+.amount .magic { font-size: 1.25cqw; text-align: center; color: var(--wine); line-height: 1.3; }
+.amount .magic b { display: block; font-size: 3.4cqw; }
+@keyframes pop { from { transform: scale(.6); opacity: 0; } }
+textarea.hand { resize: none; font-size: 2.1cqw; height: 3.1cqw; overflow: hidden; }
+
+.ck-foot { display: flex; align-items: flex-end; gap: 2cqw; margin-top: 1.6cqw; }
+.sig { flex: 1.3; }
+.sig .fill { justify-content: center; }
+.sig .hand { font-size: 3cqw; font-style: italic; transform: rotate(-3deg); display: inline-block; }
+.date { flex: 1; display: flex; gap: .8cqw; align-items: flex-end; }
+.date .fill { justify-content: center; } .date .hand { font-size: 2.2cqw; }
+.go { flex: none; border: 0; cursor: pointer; background: linear-gradient(160deg, #8c1e2e, #6e1424 55%, #43091a); color: #fff; font-size: 1.8cqw; font-weight: 700; padding: .8cqw 2.2cqw; border-radius: 99px; box-shadow: 0 0 0 2px var(--gold-soft), 0 1cqw 2cqw -.6cqw rgba(40,5,10,.7); }
+.go:disabled { opacity: .6; cursor: wait; }
+.err { color: #b3261e; font-size: 1.3cqw; font-weight: 700; min-height: 1.6cqw; text-align: center; margin-top: .3cqw; }
+.micr { position: absolute; bottom: 1.2cqw; left: 6cqw; right: 3cqw; direction: ltr; text-align: center; font-family: 'OCR A Std', 'Consolas', monospace; font-size: 1.45cqw; letter-spacing: .3em; color: #3c4f5c; opacity: .8; }
+
+/* טלפון: הצ'ק עומד לאורך */
+@media (max-width: 700px) {
+  .check { aspect-ratio: auto; container-type: normal; padding: 14px 14px 46px 40px; font-size: 16px; }
+  .check .side { width: 26px; } .check .side span { font-size: 11px; }
+  .check .x { left: 34px; top: 8px; width: 30px; height: 30px; font-size: 20px; }
+  .ck-head { flex-direction: column-reverse; gap: 10px; padding-bottom: 10px; }
+  .bank { margin: 0 auto 0 0; } .bank img { height: 34px; } .bank div { font-size: 12px; } .bank div b { font-size: 15px; }
+  .holder { font-size: 16px; } .holder input.hand, .holder select.hand { width: 100%; font-size: 18px; }
+  .stamp { top: 12px; left: auto; right: 14px; font-size: 13px; padding: 2px 8px; } .stamp small { font-size: 8px; }
+  .line { margin-top: 14px; } .lbl { font-size: 15px; } .lbl small { font-size: 9px; } .fill { min-height: 34px; } .hand { font-size: 22px; }
+  .sum { flex-direction: column-reverse; margin-top: 14px; flex: none; }
+  .amount img { max-height: 135px; }
+  .amount { width: 100%; height: 150px; } .amount::before { font-size: 12px; top: -10px; } .amount img { max-height: 135px; } .amount .empty, .amount .magic { font-size: 13px; } .amount .magic b { font-size: 30px; }
+  .chip { font-size: 14px; padding: 4px 11px 5px; } .chips { gap: 6px; }
+  textarea.hand { font-size: 18px; height: 52px; }
+  .ck-foot { flex-wrap: wrap; } .sig { flex-basis: 100%; } .sig .hand { font-size: 24px; } .date .hand { font-size: 18px; }
+  .go { font-size: 18px; padding: 10px 22px; flex-basis: 100%; }
+  .err { font-size: 14px; }
+  .micr { font-size: 10px; bottom: 12px; left: 40px; right: 10px; }
+}
+
+/* ===== גילוי המתנה ===== */
+.reveal { position: fixed; inset: 0; z-index: 40; display: grid; place-items: center; pointer-events: none; }
+.reveal[hidden] { display: none; }
+.reveal .card { text-align: center; animation: revealIn .9s cubic-bezier(.2,.9,.3,1.2); width: min(680px, 90vw); }
+.reveal .halo { position: relative; display: flex; justify-content: center; align-items: flex-end; height: min(46vh, 70vw); }
+.reveal .halo::before { content: ''; position: absolute; inset: -10% -20%; background: radial-gradient(circle, rgba(255,236,190,.95) 0%, rgba(255,220,150,.5) 35%, transparent 65%); z-index: -1; }
+.reveal .halo img { height: 100%; width: auto; max-width: 100%; object-fit: contain; filter: drop-shadow(0 1vw 1.5vw rgba(60,30,5,.5)); }
+.reveal .halo.two img { max-width: 50%; } .reveal .halo.two img + img { margin-inline-start: -6%; }
+.reveal .halo .pending { height: 100%; width: auto; }
+.reveal .txt { display: inline-block; margin-top: 14px; background: rgba(251,246,236,.96); color: var(--wine); padding: 12px 28px 14px; border-radius: 22px; box-shadow: 0 0 0 1.5px var(--gold), 0 20px 40px -14px rgba(0,0,0,.6); max-width: 100%; }
+.reveal .txt b { display: block; font-size: clamp(24px, 2.6vw, 44px); line-height: 1.1; }
+.reveal .txt span { display: block; font-size: clamp(16px, 1.5vw, 26px); color: #3a2a20; margin-top: 4px; }
+@keyframes revealIn { from { transform: translateY(30vh) scale(.2); opacity: 0; } }
+.reveal.out .card { transition: transform .8s ease-in, opacity .8s; transform: translateY(20vh) scale(.2); opacity: 0; }
+
+/* הצ'ק עף לתוך התיבה */
+.flying { position: fixed; z-index: 45; pointer-events: none; transition: transform 1.1s cubic-bezier(.5,0,.6,1), opacity .3s 1s; }
+.sparkle { position: fixed; z-index: 46; width: 8px; height: 8px; border-radius: 50%; background: #ffe9a8; box-shadow: 0 0 10px 3px #ffd56a; pointer-events: none; animation: sp 1s ease-out forwards; }
+@keyframes sp { to { transform: translate(var(--dx), var(--dy)) scale(.2); opacity: 0; } }
+
+@media (max-width: 700px) {
+  body { overflow: hidden; }
+  .box { width: 24%; bottom: 36%; }
+  .pill img { height: 28px; } .pill img + img { height: 20px; }
+  .count { top: auto; right: 12px; bottom: 100px; padding: 6px 12px; }
+}
+</style>
+</head>
+<body>
+<div class="hall" id="hall">
+  <div class="box" id="box"><img src="images/checks/box.png" alt="תיבת הצ׳קים"></div>
+</div>
+
+<span class="bh">ב״ה</span>
+<header class="top">
+  <div class="pill"><img src="images/logo-shalhevet.png" alt="שלהבות חב״ד"><img src="images/logo-coffee-shalhevet.png" alt="Coffee שלהבות"></div>
+  <h1>הצ׳ק שלי לרבי ולרבנית</h1>
+  <div class="sub">התוועדות החתונה · י״ד כסליו · שולחן מנהלות שלהבות חב״ד</div>
+</header>
+
+<button class="cta" id="open">לשים צ׳ק בתיבה ✍️<small>משהו שעשיתי השנה בבית הספר שהרבי והרבנית ישמחו בו</small></button>
+<div class="count" id="count"><b>0</b><span>צ׳קים בתיבה</span></div>
+<div class="qr" id="qrBox"><div id="qr"></div>סרקי ושימי צ׳ק</div>
+
+<!-- הצ'ק -->
+<div class="modal" id="modal" hidden>
+  <form class="check" id="check" novalidate>
+    <div class="side"><span>שלהבות חב״ד · רשת חינוך חב״ד</span></div>
+    <button type="button" class="x" id="close" aria-label="סגירה">×</button>
+    <div class="ck-head">
+      <div class="holder">
+        <div class="row"><label for="fName">שם המנהלת:</label><input class="hand" id="fName" maxlength="40" autocomplete="name" placeholder="השם שלך"></div>
+        <div class="row"><label for="fBranch">סניף:</label><select class="hand" id="fBranch"></select></div>
+        <div class="row" id="otherWrap" hidden><label for="fOther">שם הסניף:</label><input class="hand" id="fOther" maxlength="30"></div>
+      </div>
+      <div class="bank"><img src="images/logo-shalhevet.png" alt=""><div><b>בנק המתנות</b>שלהבות חב״ד · סניף 770</div></div>
+    </div>
+    <div class="stamp">למוטב בלבד<small>הרבי והרבנית</small></div>
+
+    <div class="line">
+      <div class="lbl">שלמו ל<small>PAY TO</small></div>
+      <div class="fill"><span class="hand">הרבי והרבנית ✦ לרגל יום חתונתם, י״ד כסליו</span></div>
+    </div>
+
+    <div class="sum">
+      <div class="main">
+        <div class="line cats-line" style="margin-top:0">
+          <div class="lbl">על סך<small>THE SUM OF</small></div>
+          <div class="chips" id="chips"></div>
+        </div>
+        <div class="line" style="margin-top:0">
+          <div class="lbl">בפירוט<small>DETAILS</small></div>
+          <div class="fill"><textarea class="hand" id="fText" maxlength="300" rows="1" placeholder="מה עשיתי השנה בבית הספר שלי..."></textarea></div>
+        </div>
+      </div>
+      <div class="amount" id="amount"><div class="empty">בחרי מתנה<br>והאיור יופיע כאן</div></div>
+    </div>
+
+    <div class="ck-foot">
+      <div class="sig">
+        <div class="fill"><span class="hand" id="sig">&nbsp;</span></div>
+        <div class="lbl" style="margin-top:.4cqw">חתימה<small>SIGNATURE</small></div>
+      </div>
+      <div class="date">
+        <div style="flex:1"><div class="fill"><span class="hand">י״ד</span></div><div class="lbl" style="margin-top:.4cqw">יום</div></div>
+        <div style="flex:1.3"><div class="fill"><span class="hand">כסליו</span></div><div class="lbl" style="margin-top:.4cqw">חודש</div></div>
+        <div style="flex:1.3"><div class="fill"><span class="hand">תשפ״ז</span></div><div class="lbl" style="margin-top:.4cqw">שנה</div></div>
+      </div>
+      <button class="go" id="go">לחתום ולשים בתיבה</button>
+    </div>
+    <div class="err" id="err"></div>
+    <div class="micr">⑈0770⑈ ⑆14·12·5787⑆ 0024⑈ 1951</div>
+  </form>
+</div>
+
+<div class="reveal" id="reveal" hidden><div class="card"><div class="halo" id="rvPics"></div><div class="txt"><b id="rvName"></b><span id="rvText"></span></div></div></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
+<script type="module">
+import { getState, post, store, esc, fillBranches, apiBase } from './app.js';
+const $ = (id) => document.getElementById(id);
+const params = new URLSearchParams(location.search);
+const screen = params.has('screen'), demo = params.has('demo');
+if (screen) document.body.classList.add('screen');
+
+// קטגוריות: שם על הצ'ק + איור
+const CATS = [
+  ['hafrada', 'חיזוק הפרדה'], ['kippah', 'השתדלות בנושא כיפה'], ['tzniut', 'צניעות ולבוש'], ['staff', 'חיזוק הצוות'],
+  ['pedagogy', 'פעולה פדגוגית להצלחה'], ['tefila', 'תפילה'], ['torah', 'לימוד תורה'], ['shabbat', 'שבת'],
+  ['tzedaka', 'צדקה'], ['ahava', 'חסד ואהבת ישראל'], ['parents', 'הורים ומשפחות'], ['mivtzaim', 'מבצעים והפצת יהדות'],
+  ['other', 'משהו אחר ✨'],
+];
+const CAT_NAME = Object.fromEntries(CATS);
+const pics = (c) => c.cat === 'hafrada' ? ['images/checks/hafrada-girls.png', 'images/checks/hafrada-boys.png']
+  : c.cat === 'other' ? (c.img ? [(c.img.startsWith('/') ? (apiBase() || '') : '') + c.img] : [])
+  : [`images/checks/${c.cat}.png`];
+const picsHtml = (c) => { const p = pics(c); return p.length ? p.map((s) => `<img src="${esc(s)}" alt="">`).join('') : '<div class="pending"><i></i></div>'; };
+
+// ===== הצ'ק =====
+fillBranches($('fBranch'));
+$('fBranch').onchange = () => { $('otherWrap').hidden = $('fBranch').value !== 'אחר'; };
+const me = store.get('me'); if (me) { $('fName').value = me.name || ''; if (me.branch) $('fBranch').value = me.branch; }
+let cat = null;
+$('chips').innerHTML = CATS.map(([k, n]) => `<button type="button" class="chip${k === 'other' ? ' other' : ''}" data-k="${k}">${n}</button>`).join('');
+$('chips').onclick = (e) => {
+  const b = e.target.closest('.chip'); if (!b) return;
+  cat = b.dataset.k;
+  $('chips').querySelectorAll('.chip').forEach((x) => x.classList.toggle('on', x === b));
+  const a = $('amount');
+  if (cat === 'other') { a.innerHTML = '<div class="magic"><b>✨</b>כתבי בפירוט מה עשית —<br>ונצייר לך איור מיוחד באותו רגע</div>'; $('fText').focus(); }
+  else a.innerHTML = `<div class="pics${cat === 'hafrada' ? ' two' : ''}">${picsHtml({ cat })}</div>`;
+};
+const sig = () => { $('sig').textContent = $('fName').value.trim() || ' '; };
+$('fName').oninput = sig; sig();
+
+const openCheck = () => { $('modal').hidden = false; $('check').classList.remove('in'); void $('check').offsetWidth; $('check').classList.add('in'); $('err').textContent = ''; ($('fName').value ? $('fText') : $('fName')).focus(); };
+const closeCheck = () => { $('modal').hidden = true; };
+$('open').onclick = openCheck; $('close').onclick = closeCheck;
+$('modal').onclick = (e) => { if (e.target === $('modal')) closeCheck(); };
+addEventListener('keydown', (e) => { if (e.key === 'Escape') closeCheck(); });
+
+let busy = false;
+$('check').onsubmit = async (e) => {
+  e.preventDefault(); if (busy) return;
+  const name = $('fName').value.trim();
+  const branch = $('fBranch').value === 'אחר' ? ($('fOther').value.trim() || 'אחר') : $('fBranch').value;
+  const text = $('fText').value.trim();
+  if (name.length < 2) return ($('err').textContent = 'נא למלא שם');
+  if (!cat) return ($('err').textContent = 'נא לבחור "על סך" — מה המתנה');
+  if (cat === 'other' && text.length < 3) return ($('err').textContent = 'נא לכתוב בפירוט מה עשית, כדי שנצייר את האיור');
+  busy = true; $('go').disabled = true; $('err').textContent = '';
+  try {
+    let c;
+    if (demo) c = { id: 'd' + Date.now().toString(36), name, branch, cat, text, img: null, at: new Date().toISOString() };
+    else {
+      const r = await post('/api/check', { name, branch, cat, text });
+      if (!r.ok) { $('err').textContent = r.error || 'משהו השתבש, נסי שוב'; busy = false; $('go').disabled = false; return; }
+      c = r.check; state = r.state;
+    }
+    store.set('me', { name, branch });
+    if (demo) state.checks.push(c);
+    seen.add(c.id);
+    await flyIntoBox();
+    await reveal(c);
+    render();
+    $('fText').value = ''; cat = null; $('chips').querySelectorAll('.chip').forEach((x) => x.classList.remove('on'));
+    $('amount').innerHTML = '<div class="empty">בחרי מתנה<br>והאיור יופיע כאן</div>';
+  } catch { $('err').textContent = 'אין כרגע חיבור — נסי שוב בעוד רגע'; }
+  busy = false; $('go').disabled = false;
+};
+
+// הצ'ק מתקפל ועף לחריץ של התיבה
+function flyIntoBox() {
+  return new Promise((done) => {
+    const ck = $('check'), r = ck.getBoundingClientRect(), b = $('box').getBoundingClientRect();
+    const fly = ck.cloneNode(true); fly.classList.remove('in'); fly.classList.add('flying');
+    Object.assign(fly.style, { left: r.left + 'px', top: r.top + 'px', width: r.width + 'px', height: r.height + 'px', margin: 0 });
+    document.body.appendChild(fly); closeCheck();
+    const tx = b.left + b.width / 2 - (r.left + r.width / 2), ty = b.top + b.height * .14 - (r.top + r.height / 2);
+    const s = (b.width * .45) / r.width;
+    requestAnimationFrame(() => requestAnimationFrame(() => { fly.style.transform = `translate(${tx}px, ${ty}px) scale(${s}) rotateX(70deg)`; fly.style.opacity = 0; }));
+    setTimeout(() => { fly.remove(); $('box').classList.remove('pulse'); void $('box').offsetWidth; $('box').classList.add('pulse'); sparkles(b.left + b.width / 2, b.top + b.height * .14); done(); }, 1150);
+  });
+}
+function sparkles(x, y) {
+  for (let i = 0; i < 22; i++) {
+    const s = document.createElement('i'); s.className = 'sparkle';
+    const a = Math.random() * Math.PI * 2, d = 60 + Math.random() * 140;
+    s.style.cssText = `left:${x}px;top:${y}px;--dx:${Math.cos(a) * d}px;--dy:${Math.sin(a) * d - 60}px`;
+    document.body.appendChild(s); setTimeout(() => s.remove(), 1100);
+  }
+}
+
+// גילוי המתנה מעל התיבה
+const rq = []; let revealing = false;
+function reveal(c) { return new Promise((done) => { rq.push([c, done]); if (!revealing) nextReveal(); }); }
+function nextReveal() {
+  const it = rq.shift(); if (!it) { revealing = false; return; }
+  revealing = true; const [c, done] = it;
+  const rv = $('reveal'); rv.classList.remove('out'); rv.hidden = false;
+  const h = $('rvPics'); h.className = 'halo' + (c.cat === 'hafrada' ? ' two' : ''); h.innerHTML = picsHtml(c); h.dataset.id = c.id;
+  $('rvName').textContent = c.name + (c.branch ? ' · ' + c.branch : '');
+  $('rvText').textContent = CAT_NAME[c.cat] && c.cat !== 'other' ? CAT_NAME[c.cat] + (c.text ? ' — ' + c.text : '') : c.text;
+  // "אחר" — מחכים לאיור שנוצר (עד דקה וחצי)
+  const wait = c.cat === 'other' && !c.img && !demo ? 90000 : 6000;
+  const t0 = Date.now();
+  const tick = setInterval(() => {
+    const cur = (state.checks || []).find((x) => x.id === c.id);
+    if (cur && cur.img && !h.querySelector('img')) { h.innerHTML = picsHtml(cur); setTimeout(finish, 6000); clearInterval(tick); }
+    if (Date.now() - t0 > wait) { clearInterval(tick); finish(); }
+  }, 1000);
+  let ended = false;
+  function finish() { if (ended) return; ended = true; clearInterval(tick); rv.classList.add('out'); setTimeout(() => { rv.hidden = true; done(); nextReveal(); }, 800); }
+  if (wait === 6000) setTimeout(finish, 6000);
+}
+
+// ===== המתנות סביב התיבה =====
+// משבצות: מימין ומשמאל לתיבה, שורות על הרצפה ומעליה
+function slots(n) {
+  const out = []; const perSide = Math.ceil(n / 2);
+  const cols = perSide <= 6 ? 3 : 4;
+  const rows = Math.max(1, Math.ceil(perSide / cols));
+  const w = Math.min(cols === 3 ? 10.5 : 8.2, 30 / rows);
+  for (let i = 0; i < n; i++) {
+    const side = i % 2 ? -1 : 1, k = Math.floor(i / 2), col = k % cols, row = Math.floor(k / cols);
+    const x = 50 + side * (19.5 + w * .5 + col * w * 1.02);
+    out.push({ x, b: 18 + row * w * 1.15 + col * 1.2, w });
+  }
+  return out;
+}
+let state = { checks: [] }; const seen = new Set(); let first = true;
+function render() {
+  const list = state.checks || []; const hall = $('hall'); const pos = slots(list.length);
+  list.forEach((c, i) => {
+    let el = hall.querySelector(`.gift[data-id="${c.id}"]`);
+    const key = c.img || c.cat;
+    if (!el) {
+      el = document.createElement('div'); el.className = 'gift'; el.dataset.id = c.id;
+      hall.appendChild(el);
+      if (!first) el.classList.add('new');
+      if (!first && !seen.has(c.id)) { seen.add(c.id); reveal(c); }
+    }
+    if (el.dataset.key !== key) {
+      el.dataset.key = key;
+      el.innerHTML = `<div class="pics${c.cat === 'hafrada' ? ' two' : ''}">${picsHtml(c)}</div><span class="nm">${esc(c.name)}</span>`;
+      el.title = `${c.name}${c.branch ? ' · ' + c.branch : ''}: ${CAT_NAME[c.cat] || ''}${c.text ? ' — ' + c.text : ''}`;
+    }
+    const p = pos[i]; el.style.left = p.x + '%'; el.style.bottom = p.b + '%'; el.style.width = p.w + '%'; el.style.zIndex = 4 + 100 - Math.round(p.b);
+  });
+  hall.querySelectorAll('.gift').forEach((el) => { if (!list.find((c) => c.id === el.dataset.id)) el.remove(); });
+  $('count').innerHTML = `<b>${list.length}</b><span>צ׳קים בתיבה</span>`;
+  list.forEach((c) => seen.add(c.id));
+  first = false;
+}
+
+if (screen && window.qrcode) {
+  const q = qrcode(0, 'M'); q.addData(location.href.split('?')[0]); q.make();
+  $('qr').innerHTML = q.createSvgTag({ cellSize: 4, margin: 0 });
+  $('qr').querySelector('svg').style.cssText = 'width:min(11vw,20vh);height:auto;display:block;margin-bottom:6px';
+}
+
+async function refresh() {
+  if (demo) return;
+  const s = await getState(); state = { ...s, checks: s.checks || [] }; render();
+}
+if (demo) {
+  // דוגמאות להצגה בלבד — לא נשמרות בשרת
+  const D = [['חני קרניאל', 'גדרה', 'hafrada', 'הפרדה מלאה בהפסקות ובחצר'], ['שייני וולסוב', 'רמת ישי', 'kippah', 'כל הבנים מגיעים עם כיפה'], ['שטרנה שנור', 'גני תקווה', 'staff', 'ערב גיבוש לצוות'],
+    ['שרי הר צבי', 'חולון', 'pedagogy', 'תוכנית קריאה — כל הכיתות עלו ברמה'], ['מושקא ערד', 'באר יעקב', 'shabbat', 'קבלת שבת שבועית עם ההורים'], ['אילה פרחאן', 'נתניה', 'tefila', ''], ['רינה אלהרר', 'אשקלון', 'tzniut', '']];
+  state = { checks: D.map(([name, branch, cat, text], i) => ({ id: 'demo' + i, name, branch, cat, text, at: '' })) };
+  render();
+} else { await refresh(); setInterval(refresh, screen ? 3000 : 5000); }
+addEventListener('resize', render);
+</script>
+</body>
+</html>
