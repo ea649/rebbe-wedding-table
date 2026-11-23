@@ -326,7 +326,9 @@ $('fName').oninput = sig; sig();
 
 const openCheck = () => { $('modal').hidden = false; $('check').classList.remove('in'); void $('check').offsetWidth; $('check').classList.add('in'); $('err').textContent = ''; ($('fName').value ? $('fText') : $('fName')).focus(); };
 const closeCheck = () => { $('modal').hidden = true; };
-$('open').onclick = openCheck; $('close').onclick = closeCheck;
+$('open').onclick = openCheck;
+// מי שסורקת את הברקוד מגיעה ישר לצ'ק
+if (params.has('check')) openCheck(); $('close').onclick = closeCheck;
 $('modal').onclick = (e) => { if (e.target === $('modal')) closeCheck(); };
 addEventListener('keydown', (e) => { if (e.key === 'Escape') closeCheck(); });
 
@@ -472,7 +474,7 @@ function render() {
 }
 
 if (screen && window.qrcode) {
-  const q = qrcode(0, 'M'); q.addData(location.href.split('?')[0]); q.make();
+  const q = qrcode(0, 'M'); q.addData(location.href.split('?')[0] + '?check'); q.make();
   $('qr').innerHTML = q.createSvgTag({ cellSize: 4, margin: 0 }).replace(/fill="white"/g, 'fill="none"').replace(/fill="black"/g, 'fill="#6e1424"');
   $('qr').querySelector('svg').style.cssText = 'width:min(11vw,20vh);height:auto;display:block;margin-bottom:6px';
 }
