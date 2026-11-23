@@ -169,6 +169,12 @@ textarea.hand { resize: none; font-size: 2.1cqw; height: 3.1cqw; overflow: hidde
 
 /* ===== גילוי: מארז סגור ← הסרט נפתח והמכסה עף ← האיור עולה מתוך המארז ← השם נכתב ===== */
 body:not(.big) .gift { display: none; }
+/* מצב מילוי בלבד (סריקה): בלי אולם, בלי קופסה, בלי כותרת — רק הצ'ק */
+body.formonly { overflow: auto; background: radial-gradient(ellipse at 50% 0%, #fbf3e4 0%, #efe0c8 100%); }
+body.formonly .hall, body.formonly .top, body.formonly .qr, body.formonly .count, body.formonly .bh { display: none; }
+body.formonly .modal { background: transparent; backdrop-filter: none; position: static; min-height: 100vh; min-height: 100svh; }
+body.formonly .check .x { display: none; }
+body.formonly .thanks { background: radial-gradient(ellipse at 50% 0%, #fbf3e4 0%, #efe0c8 100%); backdrop-filter: none; }
 /* בטלפון: אחרי השליחה רק אישור */
 .thanks { position: fixed; inset: 0; z-index: 48; display: grid; place-items: center; padding: 16px; background: rgba(30,12,6,.55); backdrop-filter: blur(4px); animation: fadeIn .4s; }
 .thanks[hidden] { display: none; }
@@ -180,13 +186,13 @@ body:not(.big) .gift { display: none; }
 .reveal { position: fixed; inset: 0; z-index: 40; display: grid; place-items: center; pointer-events: none; background: radial-gradient(circle at 50% 45%, rgba(90,40,15,.45), rgba(20,8,4,.82) 70%); backdrop-filter: blur(4px); animation: fadeIn .4s; }
 .reveal[hidden] { display: none; }
 @keyframes fadeIn { from { opacity: 0; } }
-.reveal .stagebox { position: relative; width: min(36vh, 62vw); margin-top: min(14vh, 30vw); margin-bottom: 18vh; }
+.reveal .stagebox { position: relative; width: min(27vh, 46vw); margin-top: 6vh; }
 .reveal .pkg { animation: drop .8s cubic-bezier(.2,.9,.3,1.25); }
 @keyframes drop { from { transform: translateY(-60vh) scale(.6); opacity: 0; } }
 .reveal .pkg .closed { position: absolute; inset: 0; width: 100%; height: 100%; }
 .reveal .pkg .base { opacity: 0; transform: scale(.9); }
 .reveal .pkg::before { content: ''; position: absolute; left: -60%; right: -60%; top: -120%; bottom: 20%; background: radial-gradient(circle, rgba(255,238,195,.95) 0%, rgba(255,220,150,.45) 35%, transparent 65%); opacity: 0; z-index: -1; transition: opacity 1s; }
-.reveal .pkg .pics { height: 150%; left: -15%; right: -15%; bottom: 62%; align-items: flex-end; }
+.reveal .pkg .pics { height: 125%; left: -25%; right: -25%; bottom: 62%; align-items: flex-end; }
 .reveal .pkg .pics > * { opacity: 0; transform: translateY(70%) scale(.3); animation: none; }
 .reveal .pkg .pics img { width: auto; max-width: 100%; height: auto; max-height: 100%; object-fit: contain; }
 .reveal .pkg .pics.two img { max-width: 56%; } .reveal .pkg .pics.two img + img { margin-inline-start: -4%; margin-bottom: 10%; }
@@ -292,7 +298,7 @@ body:not(.big) .gift { display: none; }
   </form>
 </div>
 
-<div class="thanks" id="thanks" hidden><div class="card"><div class="ok">✓</div><h2>הצ׳ק התקבל!</h2><p>תודה רבה. המתנה שלך מופיעה עכשיו על המסך המרכזי.</p><button type="button" id="thanksClose">סגירה</button></div></div>
+<div class="thanks" id="thanks" hidden><div class="card"><div class="ok">✓</div><h2>הצ׳ק התקבל!</h2><p>תודה רבה. המתנה שלך מופיעה עכשיו על המסך המרכזי.</p><button type="button" id="thanksClose">לשים צ׳ק נוסף</button></div></div>
 <div class="reveal" id="reveal" hidden><div class="stagebox"><div class="pkg" id="rvPkg"></div><div class="rvname"><b id="rvName"></b><span id="rvText"></span></div></div><div class="close-hint">לחיצה בכל מקום — חזרה לתיבה</div></div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
@@ -303,7 +309,7 @@ const params = new URLSearchParams(location.search);
 const screen = params.has('screen'), demo = params.has('demo');
 if (screen) document.body.classList.add('screen');
 const big = screen || demo; // רק במסך המרכזי רואים את המתנות
-if (big) document.body.classList.add('big');
+if (big) document.body.classList.add('big'); else document.body.classList.add('formonly');
 
 // קטגוריות: שם על הצ'ק + איור
 const CATS = [
@@ -337,10 +343,10 @@ const sig = () => { $('sig').textContent = $('fName').value.trim() || ' '; };
 $('fName').oninput = sig; sig();
 
 const openCheck = () => { $('modal').hidden = false; $('check').classList.remove('in'); void $('check').offsetWidth; $('check').classList.add('in'); $('err').textContent = ''; ($('fName').value ? $('fText') : $('fName')).focus(); };
-const closeCheck = () => { $('modal').hidden = true; };
+const closeCheck = () => { if (!big) return; $('modal').hidden = true; };
 $('open').onclick = openCheck;
 // מי שסורקת את הברקוד מגיעה ישר לצ'ק
-if (params.has('check')) openCheck(); $('close').onclick = closeCheck;
+if (params.has('check') || !big) openCheck(); $('close').onclick = closeCheck;
 $('modal').onclick = (e) => { if (e.target === $('modal')) closeCheck(); };
 addEventListener('keydown', (e) => { if (e.key === 'Escape') closeCheck(); });
 
@@ -365,9 +371,8 @@ $('check').onsubmit = async (e) => {
     store.set('me', { name, branch });
     if (demo) state.checks.push(c);
     seen.add(c.id);
-    await flyIntoBox();
-    if (big) { const shown = autoShow(c); render(); await shown; }
-    else { render(); $('thanks').hidden = false; }
+    if (big) { await flyIntoBox(); const shown = autoShow(c); render(); await shown; }
+    else { $('modal').hidden = true; $('thanks').hidden = false; scrollTo(0, 0); }
     $('fText').value = ''; cat = null; $('chips').querySelectorAll('.chip').forEach((x) => x.classList.remove('on'));
     $('amount').innerHTML = '<div class="empty">בחרי מתנה<br>והאיור יופיע כאן</div>';
   } catch { $('err').textContent = 'אין כרגע חיבור — נסי שוב בעוד רגע'; }
@@ -439,7 +444,7 @@ function shrinkTo(c) {
   });
 }
 function hideGift() { const rv = $('reveal'); if (rv.hidden) return; rv.classList.add('out'); setTimeout(() => { rv.hidden = true; }, 500); }
-$('thanksClose').onclick = () => { $('thanks').hidden = true; };
+$('thanksClose').onclick = () => { $('thanks').hidden = true; if (!big) openCheck(); };
 $('reveal').onclick = () => { if ($('reveal').classList.contains('click')) hideGift(); };
 addEventListener('keydown', (e) => { if (e.key === 'Escape') hideGift(); });
 $('hall').addEventListener('click', (e) => {
