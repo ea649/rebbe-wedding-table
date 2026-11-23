@@ -31,10 +31,10 @@ button, input, select, textarea { font-family: var(--f); }
 .hall::after { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 72%, transparent 30%, rgba(30,12,6,.35) 100%); pointer-events: none; }
 /* החריץ בתיבה שבתמונה — יעד הצ'ק העף */
 /* תמונות הרבי והרבנית מהחתונה — במסגרות זהב על הווילון */
-.portrait { position: absolute; top: 28%; width: 7.4%; aspect-ratio: 2 / 3; transform: translateX(-50%); z-index: 3; filter: drop-shadow(0 .9vw 1.1vw rgba(70,40,10,.5)); }
-.portrait span { position: absolute; left: 16.9%; right: 17.1%; top: 14.7%; bottom: 16.1%; background: #f6efe2; display: grid; place-items: center; }
-.portrait span img { width: 100%; height: 100%; object-fit: contain; display: block; filter: sepia(.15) contrast(1.05); }
-.portrait > img { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.portrait { position: absolute; top: 31%; width: 7.4%; aspect-ratio: 210 / 263; transform: translateX(-50%); z-index: 3; padding: .55%; background: linear-gradient(145deg, #f3dfa0, #b08a48 35%, #e9cf8c 55%, #8f6b2e 100%); box-shadow: 0 1.2vw 2vw -0.6vw rgba(70,40,10,.55), inset 0 0 0 1px rgba(255,240,200,.6); }
+.portrait::before { content: ''; position: absolute; left: 50%; bottom: 100%; width: 40%; height: 2.2vw; transform: translateX(-50%); border: 2px solid #b08a48; border-bottom: 0; border-radius: 50% 50% 0 0 / 100% 100% 0 0; }
+.portrait span { display: block; width: 100%; height: 100%; padding: 7%; background: #fbf6ec; box-shadow: inset 0 0 0 1px rgba(176,138,72,.5); }
+.portrait img { width: 100%; height: 100%; object-fit: cover; display: block; filter: sepia(.15) contrast(1.05); }
 .portrait.r { left: 91.5%; } .portrait.l { left: 83.3%; }
 .box { position: absolute; left: 50%; bottom: 12.3%; width: 26%; aspect-ratio: 1; transform: translateX(-50%); z-index: 6; border: 0; padding: 0; background: none; cursor: pointer; transition: transform .25s; }
 .box img { width: 100%; height: 100%; display: block; position: relative; }
@@ -239,8 +239,8 @@ body.formonly .thanks { background: radial-gradient(ellipse at 50% 0%, #fbf3e4 0
 <body>
 <div class="hall" id="hall">
   <div class="bg"></div>
-  <div class="portrait r"><span><img src="images/rebbe.jpg" alt="הרבי ביום החתונה"></span><img src="images/checks/frame-gold.png" alt=""></div>
-  <div class="portrait l"><span><img src="images/rebbetzin.jpg" alt="הרבנית ביום החתונה"></span><img src="images/checks/frame-gold.png" alt=""></div>
+  <div class="portrait r"><span><img src="images/rebbe.jpg" alt="הרבי ביום החתונה"></span></div>
+  <div class="portrait l"><span><img src="images/rebbetzin.jpg" alt="הרבנית ביום החתונה"></span></div>
   <div class="slot" id="box"></div>
   <button class="box" id="open" aria-label="לשים צ׳ק בתיבה"><img class="refl" src="images/checks/box-plain.png" alt=""><img src="images/checks/box-plain.png" alt="תיבת הצ׳קים"><span class="slot" id="box"></span></button>
 </div>
